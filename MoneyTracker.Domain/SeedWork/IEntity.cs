@@ -1,7 +1,7 @@
 ﻿namespace MoneyTracker.Domain.SeedWork
 {
-    public abstract class Entity<TId>
+    public interface IEntity<out TId>
     {
-        public TId Id { get; protected set; }
+        TId Id { get; }
     }
 }

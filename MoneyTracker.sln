@@ -3,13 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyTracker.Web", "MoneyTracker.Web\MoneyTracker.Web.csproj", "{A9981B3C-8755-44A0-B830-A8AB91CB922D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyTracker.Web", "MoneyTracker.Web\MoneyTracker.Web.csproj", "{A9981B3C-8755-44A0-B830-A8AB91CB922D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyTracker.Application", "MoneyTracker.Application\MoneyTracker.Application.csproj", "{E61CEFD3-17B7-4A43-B996-6211B4DB6D16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyTracker.Application", "MoneyTracker.Application\MoneyTracker.Application.csproj", "{E61CEFD3-17B7-4A43-B996-6211B4DB6D16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyTracker.Domain", "MoneyTracker.Domain\MoneyTracker.Domain.csproj", "{39778237-59CF-47BE-BB0A-C91EE92DBB06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyTracker.Domain", "MoneyTracker.Domain\MoneyTracker.Domain.csproj", "{39778237-59CF-47BE-BB0A-C91EE92DBB06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyTracker.Infrastructure", "MoneyTracker.Infrastructure\MoneyTracker.Infrastructure.csproj", "{870E8B59-26F1-4347-B7A2-DC3D0DF2BEC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyTracker.Infrastructure", "MoneyTracker.Infrastructure\MoneyTracker.Infrastructure.csproj", "{870E8B59-26F1-4347-B7A2-DC3D0DF2BEC9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1E6D48F0-FF8D-4606-859F-3CD8DCB3DB5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyTracker.Domain.Tests", "Tests\MoneyTracker.Domain.Tests\MoneyTracker.Domain.Tests.csproj", "{56FDC4B3-6AEC-4088-8FF7-61B241F4A61F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyTracker.Application.Tests", "Tests\MoneyTracker.Application.Tests\MoneyTracker.Application.Tests.csproj", "{19F22041-97E8-4C9A-BC23-E470B297A143}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyTracker.Infrastructure.Tests", "Tests\MoneyTracker.Infrastructure.Tests\MoneyTracker.Infrastructure.Tests.csproj", "{D9B11655-0366-4B9C-B9D1-8824718354FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +41,26 @@ Global
 		{870E8B59-26F1-4347-B7A2-DC3D0DF2BEC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{870E8B59-26F1-4347-B7A2-DC3D0DF2BEC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{870E8B59-26F1-4347-B7A2-DC3D0DF2BEC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56FDC4B3-6AEC-4088-8FF7-61B241F4A61F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56FDC4B3-6AEC-4088-8FF7-61B241F4A61F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56FDC4B3-6AEC-4088-8FF7-61B241F4A61F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56FDC4B3-6AEC-4088-8FF7-61B241F4A61F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19F22041-97E8-4C9A-BC23-E470B297A143}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19F22041-97E8-4C9A-BC23-E470B297A143}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19F22041-97E8-4C9A-BC23-E470B297A143}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19F22041-97E8-4C9A-BC23-E470B297A143}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9B11655-0366-4B9C-B9D1-8824718354FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9B11655-0366-4B9C-B9D1-8824718354FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9B11655-0366-4B9C-B9D1-8824718354FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9B11655-0366-4B9C-B9D1-8824718354FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{56FDC4B3-6AEC-4088-8FF7-61B241F4A61F} = {1E6D48F0-FF8D-4606-859F-3CD8DCB3DB5E}
+		{19F22041-97E8-4C9A-BC23-E470B297A143} = {1E6D48F0-FF8D-4606-859F-3CD8DCB3DB5E}
+		{D9B11655-0366-4B9C-B9D1-8824718354FC} = {1E6D48F0-FF8D-4606-859F-3CD8DCB3DB5E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2C6EEA8F-75D4-4A88-ACD8-EBD0135EFDF5}
