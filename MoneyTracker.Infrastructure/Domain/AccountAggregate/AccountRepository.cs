@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using MoneyTracker.Domain.Aggregates.AccountAggregate;
+using MoneyTracker.Domain.AggregatesModel.AccountAggregate;
 using MoneyTracker.Domain.Core;
 using MoneyTracker.Domain.SeedWork;
 using MoneyTracker.Infrastructure.Persistence;
@@ -104,7 +104,7 @@ namespace MoneyTracker.Infrastructure.Domain.AccountAggregate
 
             return new Account(
                 account.AccountId,
-                account.Expenses.Select(x => new Expense(new Money(x.Amount, Currency.Byn), x.SpentAt, ExpenseType.Purchase)),
+                account.Expenses.Select(x => new Expense(x.Id, new Money(x.Amount, Currency.Byn), x.SpentAt, ExpenseType.Purchase)),
                 account.Incomes.Select(x => new Income(new Money(x.Amount, Currency.Byn), x.ReceivedAt))
             );
         }

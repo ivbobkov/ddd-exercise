@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using MoneyTracker.Domain.SeedWork;
 
-namespace MoneyTracker.Domain.Aggregates.AccountAggregate
+namespace MoneyTracker.Domain.AggregatesModel.AccountAggregate
 {
     public class Account : IEntity<Guid>, IAggregateRoot
     {

@@ -8,12 +8,7 @@ namespace MoneyTracker.Infrastructure.Persistence.MappingProfiles
     {
         public void Configure(EntityTypeBuilder<ExpenseEntity> builder)
         {
-            builder.HasKey(x => new
-            {
-                x.Amount,
-                x.ExpenseType,
-                x.SpentAt,
-            });
+            builder.HasKey(x => x.Id);
         }
     }
 }
