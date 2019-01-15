@@ -4,19 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using MoneyTracker.Domain.AggregatesModel.AccountAggregate;
 using MoneyTracker.Domain.Core;
-using MoneyTracker.Domain.QueriesModel;
 
 namespace MoneyTracker.Application
 {
     public class AccountService : IAccountService
     {
         private readonly IAccountRepository accountRepository;
-        private readonly IAccountProvider accountProvider;
 
-        public AccountService(IAccountRepository accountRepository, IAccountProvider accountProvider)
+        public AccountService(IAccountRepository accountRepository)
         {
             this.accountRepository = accountRepository;
-            this.accountProvider = accountProvider;
         }
 
         public async Task AddExpenseAsync(Guid accountId,
@@ -26,7 +23,7 @@ namespace MoneyTracker.Application
             ExpenseType expenseType)
         {
             var account = accountRepository.GetById(accountId);
-            account.AddExpense(new Expense(id, value, spentAt, expenseType));
+            //account.AddExpense(new Expense(id, value, spentAt, expenseType));
             await accountRepository.UnitOfWork.CommitAsync();
         }
 
@@ -36,7 +33,7 @@ namespace MoneyTracker.Application
             DateTime receivedAt)
         {
             var account = accountRepository.GetById(accountId);
-            account.AddIncome(new Income(value, receivedAt));
+            //account.AddIncome(new Income(value, receivedAt));
             await accountRepository.UnitOfWork.CommitAsync();
         }
 
@@ -53,7 +50,8 @@ namespace MoneyTracker.Application
 
         public async Task<IEnumerable<AccountDto>> GetAllAccountsAsync()
         {
-            return await accountProvider.GetAllAsync();
+            return new AccountDto[0];
+            //return await accountProvider.GetAllAsync();
         }
     }
 }

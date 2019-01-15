@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using MoneyTracker.Domain.Core;
 using MoneyTracker.Domain.SeedWork;
 
 namespace MoneyTracker.Domain.AggregatesModel.AccountAggregate
@@ -18,19 +20,31 @@ namespace MoneyTracker.Domain.AggregatesModel.AccountAggregate
 
         public Guid Id { get; }
 
-        public void AddExpense(Expense expense)
-        {
-            expense = expense ?? throw new ArgumentNullException(nameof(expense));
-            expenses.Add(expense);
-        }
-
-        public void AddIncome(Income income)
-        {
-            income = income ?? throw new ArgumentNullException(nameof(income));
-            incomes.Add(income);
-        }
-
         public IEnumerable<Expense> Expenses => expenses;
         public IEnumerable<Income> Incomes => incomes;
+
+        public void AddExpense(Money value, DateTime spentAt, ExpenseType expenseType)
+        {
+            expenses.Add(new Expense(value, spentAt, expenseType));
+        }
+
+        public void AddIncome(Money value, DateTime receivedAt)
+        {
+            incomes.Add(new Income(value, receivedAt));
+        }
+
+        public Money GetAmount(Currency currency)
+        {
+            var totalExpenses = expenses.Sum(x => x.Value.Convert(Currency.Usd).Amount);
+            var totalIncomes = incomes.Sum(x => x.Value.Convert(Currency.Usd).Amount);
+            var total = (totalIncomes - totalExpenses) * currency.Rate;
+            return new Money(total, currency);
+        }
+
+        public static Account Create()
+        {
+            var id = Guid.NewGuid();
+            return new Account(id, Enumerable.Empty<Expense>(), Enumerable.Empty<Income>());
+        }
     }
 }

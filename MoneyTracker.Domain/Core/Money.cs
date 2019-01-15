@@ -12,5 +12,10 @@ namespace MoneyTracker.Domain.Core
 
         public decimal Amount { get; }
         public Currency Currency { get; }
+
+        public Money Convert(Currency currency)
+        {
+            return new Money(Amount / Currency.Rate * currency.Rate, currency);
+        }
     }
 }

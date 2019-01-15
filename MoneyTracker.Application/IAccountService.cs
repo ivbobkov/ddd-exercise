@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MoneyTracker.Domain.AggregatesModel.AccountAggregate;
 using MoneyTracker.Domain.Core;
-using MoneyTracker.Domain.QueriesModel;
 
 namespace MoneyTracker.Application
 {

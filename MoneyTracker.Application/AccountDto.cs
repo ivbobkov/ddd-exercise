@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MoneyTracker.Domain.QueriesModel
+namespace MoneyTracker.Application
 {
     public class AccountDto
     {
