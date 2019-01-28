@@ -7,7 +7,7 @@ namespace MoneyTracker.Infrastructure.Ioc
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<AccountService>().As<IAccountService>().InstancePerLifetimeScope();
+            builder.RegisterType<BalanceService>().As<IBalanceService>().InstancePerLifetimeScope();
         }
     }
 }

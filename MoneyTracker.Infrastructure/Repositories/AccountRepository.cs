@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using MoneyTracker.Domain.AggregatesModel.AccountAggregate;
 using MoneyTracker.Domain.Core;
 using MoneyTracker.Domain.SeedWork;
+using MoneyTracker.Domain.WriteModel.BalanceAggregate;
 using MoneyTracker.Infrastructure.Persistence;
 using MoneyTracker.Infrastructure.Persistence.Entities;
 
 namespace MoneyTracker.Infrastructure.Repositories
 {
-    public class AccountRepository : IAccountRepository
+    public class AccountRepository : IBalanceRepository
     {
         public AccountRepository(IUnitOfWork unitOfWork)
         {
@@ -20,21 +20,21 @@ namespace MoneyTracker.Infrastructure.Repositories
 
         protected MoneyTrackerDbContext DbContext => (MoneyTrackerDbContext) UnitOfWork;
 
-        public void Add(Account account)
+        public void Add(Balance balance)
         {
             var dbEntity = new AccountEntity
             {
-                AccountId = account.Id,
-                Expenses = account.Expenses.Select(x => new ExpenseEntity
+                AccountId = balance.Id,
+                Expenses = balance.Expenses.Select(x => new ExpenseEntity
                 {
-                    AccountId = account.Id,
+                    AccountId = balance.Id,
                     Amount = x.Value.Amount,
                     ExpenseType = x.ExpenseType.Key,
                     SpentAt = x.SpentAt
                 }).ToList(),
-                Incomes = account.Incomes.Select(x => new IncomeEntity
+                Incomes = balance.Incomes.Select(x => new IncomeEntity
                 {
-                    AccountId = account.Id,
+                    AccountId = balance.Id,
                     Amount = x.Value.Amount,
                     ReceivedAt = x.ReceivedAt
                 }).ToList()
@@ -43,14 +43,14 @@ namespace MoneyTracker.Infrastructure.Repositories
             DbContext.Accounts.Add(dbEntity);
         }
 
-        public void Update(Account account)
+        public void Update(Balance balance)
         {
             var dbEntry = DbContext.Accounts
                 .Include(x => x.Expenses)
                 .Include(x => x.Incomes)
-                .Single(x => x.AccountId == account.Id);
+                .Single(x => x.AccountId == balance.Id);
 
-            foreach (var expense in account.Expenses)
+            foreach (var expense in balance.Expenses)
             {
                 var entry = dbEntry.Expenses.FirstOrDefault(x =>
                     x.SpentAt == expense.SpentAt
@@ -61,7 +61,7 @@ namespace MoneyTracker.Infrastructure.Repositories
                 {
                     dbEntry.Expenses.Add(new ExpenseEntity
                     {
-                        AccountId = account.Id,
+                        AccountId = balance.Id,
                         Amount = expense.Value.Amount,
                         ExpenseType = expense.ExpenseType.Key
                     });
@@ -73,7 +73,7 @@ namespace MoneyTracker.Infrastructure.Repositories
                 entry.SpentAt = expense.SpentAt;
             }
 
-            foreach (var income in account.Incomes)
+            foreach (var income in balance.Incomes)
             {
                 var entry = dbEntry.Incomes.FirstOrDefault(x =>
                     x.ReceivedAt == income.ReceivedAt
@@ -83,7 +83,7 @@ namespace MoneyTracker.Infrastructure.Repositories
                 {
                     dbEntry.Incomes.Add(new IncomeEntity
                     {
-                        AccountId = account.Id,
+                        AccountId = balance.Id,
                         Amount = income.Value.Amount,
                         ReceivedAt = income.ReceivedAt
                     });
@@ -95,14 +95,14 @@ namespace MoneyTracker.Infrastructure.Repositories
             }
         }
 
-        public Account GetById(Guid accountId)
+        public Balance GetById(Guid accountId)
         {
             var account = DbContext.Accounts
                 .Include(x => x.Expenses)
                 .Include(x => x.Incomes)
                 .Single(x => x.AccountId == accountId);
 
-            return new Account(
+            return new Balance(
                 account.AccountId,
                 account.Expenses.Select(x => new Expense(new Money(x.Amount, Currency.Byn), x.SpentAt, ExpenseType.Purchase)),
                 account.Incomes.Select(x => new Income(new Money(x.Amount, Currency.Byn), x.ReceivedAt))

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace MoneyTracker.Application
+namespace MoneyTracker.Domain.ReadModel
 {
-    public class AccountDto
+    public class BalanceDetailsDto
     {
         public Guid AccountNumber { get; set; }
     }

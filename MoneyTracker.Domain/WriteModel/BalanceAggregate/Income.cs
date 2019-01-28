@@ -1,7 +1,7 @@
 ﻿using System;
 using MoneyTracker.Domain.Core;
 
-namespace MoneyTracker.Domain.AggregatesModel.AccountAggregate
+namespace MoneyTracker.Domain.WriteModel.BalanceAggregate
 {
     public class Income
     {

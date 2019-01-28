@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MoneyTracker.Domain.QueriesModel.AccountDto>
+﻿@model MoneyTracker.Domain.ReadModel.BalanceDetailsDto
 @{
     Layout = null;
 }
@@ -11,9 +11,5 @@
     <title>Index</title>
 </head>
 <body>
-    @foreach (var account in Model)
-    {
-        <p>@account.AccountNumber</p>
-    }
 </body>
 </html>

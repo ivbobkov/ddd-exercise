@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MoneyTracker.Domain.AggregatesModel.AccountAggregate;
 using MoneyTracker.Domain.Core;
+using MoneyTracker.Domain.ReadModel;
+using MoneyTracker.Domain.WriteModel.BalanceAggregate;
 
 namespace MoneyTracker.Application
 {
-    public class AccountService : IAccountService
+    public class BalanceService : IBalanceService
     {
-        private readonly IAccountRepository accountRepository;
+        private readonly IBalanceRepository accountRepository;
 
-        public AccountService(IAccountRepository accountRepository)
+        public BalanceService(IBalanceRepository accountRepository)
         {
             this.accountRepository = accountRepository;
         }
@@ -37,10 +37,10 @@ namespace MoneyTracker.Application
             await accountRepository.UnitOfWork.CommitAsync();
         }
 
-        public async Task<Guid> CreateAccountAsync()
+        public async Task<Guid> CreateAsync()
         {
             var accountNumber = Guid.NewGuid();
-            var account = new Account(accountNumber, Enumerable.Empty<Expense>(), Enumerable.Empty<Income>());
+            var account = new Balance(accountNumber, Enumerable.Empty<Expense>(), Enumerable.Empty<Income>());
 
             accountRepository.Add(account);
             await accountRepository.UnitOfWork.CommitAsync();
@@ -48,10 +48,9 @@ namespace MoneyTracker.Application
             return accountNumber;
         }
 
-        public async Task<IEnumerable<AccountDto>> GetAllAccountsAsync()
+        public Task<BalanceDetailsDto> GetActualBalanceAsync()
         {
-            return new AccountDto[0];
-            //return await accountProvider.GetAllAsync();
+            throw new NotImplementedException();
         }
     }
 }

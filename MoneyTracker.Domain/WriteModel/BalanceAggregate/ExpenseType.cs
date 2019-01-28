@@ -1,6 +1,6 @@
 ﻿using MoneyTracker.Domain.SeedWork;
 
-namespace MoneyTracker.Domain.AggregatesModel.AccountAggregate
+namespace MoneyTracker.Domain.WriteModel.BalanceAggregate
 {
     public class ExpenseType : Enumeration<int>
     {
