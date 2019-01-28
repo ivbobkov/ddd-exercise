@@ -7,7 +7,7 @@ using MoneyTracker.Domain.WriteModel.BalanceAggregate;
 using MoneyTracker.Infrastructure.Persistence;
 using MoneyTracker.Infrastructure.Persistence.Entities;
 
-namespace MoneyTracker.Infrastructure.Repositories
+namespace MoneyTracker.Infrastructure.Domain.WriteModel
 {
     public class AccountRepository : IBalanceRepository
     {
@@ -22,19 +22,16 @@ namespace MoneyTracker.Infrastructure.Repositories
 
         public void Add(Balance balance)
         {
-            var dbEntity = new AccountEntity
+            var dbEntity = new BalanceEntity
             {
-                AccountId = balance.Id,
                 Expenses = balance.Expenses.Select(x => new ExpenseEntity
                 {
-                    AccountId = balance.Id,
                     Amount = x.Value.Amount,
                     ExpenseType = x.ExpenseType.Key,
                     SpentAt = x.SpentAt
                 }).ToList(),
                 Incomes = balance.Incomes.Select(x => new IncomeEntity
                 {
-                    AccountId = balance.Id,
                     Amount = x.Value.Amount,
                     ReceivedAt = x.ReceivedAt
                 }).ToList()
@@ -48,7 +45,7 @@ namespace MoneyTracker.Infrastructure.Repositories
             var dbEntry = DbContext.Accounts
                 .Include(x => x.Expenses)
                 .Include(x => x.Incomes)
-                .Single(x => x.AccountId == balance.Id);
+                .Single();
 
             foreach (var expense in balance.Expenses)
             {
@@ -100,10 +97,10 @@ namespace MoneyTracker.Infrastructure.Repositories
             var account = DbContext.Accounts
                 .Include(x => x.Expenses)
                 .Include(x => x.Incomes)
-                .Single(x => x.AccountId == accountId);
+                .Single(x => x.BalanceId == accountId);
 
             return new Balance(
-                account.AccountId,
+                account.BalanceId,
                 account.Expenses.Select(x => new Expense(new Money(x.Amount, Currency.Byn), x.SpentAt, ExpenseType.Purchase)),
                 account.Incomes.Select(x => new Income(new Money(x.Amount, Currency.Byn), x.ReceivedAt))
             );

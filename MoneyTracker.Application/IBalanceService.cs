@@ -8,9 +8,9 @@ namespace MoneyTracker.Application
 {
     public interface IBalanceService
     {
-        Task AddExpenseAsync(Guid accountId, string id, Money value, DateTime spentAt, ExpenseType expenseType);
-        Task AddIncomeAsync(Guid accountId, Money value, DateTime receivedAt);
-        Task<Guid> CreateAsync();
+        Task AddExpenseAsync(Money value, DateTime spentAt, ExpenseType expenseType);
+        Task AddIncomeAsync(Money value, DateTime receivedAt);
+        Task CreateAsync();
         Task<BalanceDetailsDto> GetActualBalanceAsync();
     }
 }

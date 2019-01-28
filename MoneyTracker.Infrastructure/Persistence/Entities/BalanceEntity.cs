@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace MoneyTracker.Infrastructure.Persistence.Entities
 {
-    public class AccountEntity
+    public class BalanceEntity
     {
-        public Guid AccountId { get; set; }
+        public int BalanceId { get; set; }
 
         public virtual ICollection<ExpenseEntity> Expenses { get; set; } = new List<ExpenseEntity>(0);
         public virtual ICollection<IncomeEntity> Incomes { get; set; } = new List<IncomeEntity>(0);

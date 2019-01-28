@@ -1,5 +1,4 @@
-﻿using System;
-using MoneyTracker.Domain.SeedWork;
+﻿using MoneyTracker.Domain.SeedWork;
 
 namespace MoneyTracker.Domain.WriteModel.BalanceAggregate
 {
@@ -7,6 +6,6 @@ namespace MoneyTracker.Domain.WriteModel.BalanceAggregate
     {
         void Add(Balance balance);
         void Update(Balance balance);
-        Balance GetById(Guid accountId);
+        Balance Single();
     }
 }

@@ -6,19 +6,19 @@ using MoneyTracker.Domain.SeedWork;
 
 namespace MoneyTracker.Domain.WriteModel.BalanceAggregate
 {
-    public class Balance : IEntity<Guid>, IAggregateRoot
+    public class Balance : IEntity<int>, IAggregateRoot
     {
         private readonly List<Expense> _expenses = new List<Expense>(0);
         private readonly List<Income> _incomes = new List<Income>(0);
 
-        public Balance(Guid accountId, IEnumerable<Expense> expenses, IEnumerable<Income> incomes)
+        public Balance(int id, IEnumerable<Expense> expenses, IEnumerable<Income> incomes)
         {
-            Id = accountId;
+            Id = id;
             _expenses.AddRange(expenses);
             _incomes.AddRange(incomes);
         }
 
-        public Guid Id { get; }
+        public int Id { get; }
         public IEnumerable<Expense> Expenses => _expenses;
         public IEnumerable<Income> Incomes => _incomes;
 
@@ -42,8 +42,7 @@ namespace MoneyTracker.Domain.WriteModel.BalanceAggregate
 
         public static Balance Create()
         {
-            var id = Guid.NewGuid();
-            return new Balance(id, Enumerable.Empty<Expense>(), Enumerable.Empty<Income>());
+            return new Balance(0, Enumerable.Empty<Expense>(), Enumerable.Empty<Income>());
         }
     }
 }

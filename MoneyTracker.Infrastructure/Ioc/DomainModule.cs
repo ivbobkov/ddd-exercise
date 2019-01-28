@@ -1,8 +1,8 @@
 ﻿using Autofac;
 using MoneyTracker.Domain.SeedWork;
 using MoneyTracker.Domain.WriteModel.BalanceAggregate;
+using MoneyTracker.Infrastructure.Domain.WriteModel;
 using MoneyTracker.Infrastructure.Persistence;
-using MoneyTracker.Infrastructure.Repositories;
 
 namespace MoneyTracker.Infrastructure.Ioc
 {

@@ -7,16 +7,6 @@ namespace MoneyTracker.Domain.WriteModel.BalanceAggregate
     {
         public Expense(Money value, DateTime spentAt, ExpenseType expenseType)
         {
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
-
-            if (value.Amount <= 0)
-            {
-                throw new ArgumentException("Amount is less or equal to zero", nameof(value.Amount));
-            }
-
             Value = value;
             SpentAt = spentAt;
             ExpenseType = expenseType ?? throw new ArgumentNullException(nameof(expenseType));

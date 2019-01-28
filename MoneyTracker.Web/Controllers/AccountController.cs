@@ -31,11 +31,10 @@ namespace MoneyTracker.Web.Controllers
 
         // TODO: demo case, remove
         [HttpGet]
-        public async Task<IActionResult> AddExpense(Guid accountId, string expenseId, decimal amount)
+        public async Task<IActionResult> AddExpense(Guid accountId, decimal amount)
         {
             await _balanceService.AddExpenseAsync(
                 accountId,
-                expenseId,
                 new Money(amount, Currency.Byn),
                 DateTime.Now,
                 ExpenseType.Purchase);

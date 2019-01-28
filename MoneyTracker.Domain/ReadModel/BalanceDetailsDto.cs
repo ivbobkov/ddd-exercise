@@ -1,9 +1,9 @@
-﻿using System;
+﻿using MoneyTracker.Domain.Core;
 
 namespace MoneyTracker.Domain.ReadModel
 {
     public class BalanceDetailsDto
     {
-        public Guid AccountNumber { get; set; }
+        public Money ActualAmount { get; set; }
     }
 }

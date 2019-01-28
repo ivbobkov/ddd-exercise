@@ -12,6 +12,6 @@
         }
 
         public static Currency Usd => new Currency("USD", 1M);
-        public static Currency Byn = new Currency("BYN", 2M);
+        public static Currency Byn => new Currency("BYN", 2M);
     }
 }

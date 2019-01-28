@@ -10,18 +10,19 @@ namespace MoneyTracker.Domain.Tests.WriteModel.BalanceAggregate
     public class AccountTests
     {
         [Test]
-        public void GetAmount_DifferentCurrencies_ValidAmount()
+        public void GetAmount_VerifyBalance()
         {
             var account = Balance.Create();
+
             account.AddExpense(new Money(100, Currency.Byn), DateTime.UtcNow, ExpenseType.Purchase);
             account.AddExpense(new Money(200, Currency.Usd), DateTime.UtcNow, ExpenseType.Purchase);
             account.AddIncome(new Money(400, Currency.Usd), DateTime.UtcNow);
 
             // act
-            var amount = account.GetAmount(Currency.Usd);
+            var result = account.GetAmount(Currency.Usd);
 
-            // assert
-            amount.Amount.Should().Be(150);
+            result.Amount.Should().Be(150);
+            result.Currency.Iso2Code.Should().Be(Currency.Usd.Iso2Code);
         }
     }
 }
