@@ -34,7 +34,6 @@ namespace MoneyTracker.Web.Controllers
         public async Task<IActionResult> AddExpense(Guid accountId, decimal amount)
         {
             await _balanceService.AddExpenseAsync(
-                accountId,
                 new Money(amount, Currency.Byn),
                 DateTime.Now,
                 ExpenseType.Purchase);
@@ -47,7 +46,6 @@ namespace MoneyTracker.Web.Controllers
         public async Task<IActionResult> AddIncome(Guid accountId, string expenseId, decimal amount)
         {
             await _balanceService.AddIncomeAsync(
-                accountId,
                 new Money(amount, Currency.Byn),
                 DateTime.Now);
 

@@ -8,7 +8,7 @@ namespace MoneyTracker.Infrastructure.Persistence.Entities
         public decimal Amount { get; set; }
         public DateTime SpentAt { get; set; }
         public int ExpenseType { get; set; }
-        public Guid BalanceId { get; set; }
+        public int BalanceId { get; set; }
 
         public virtual BalanceEntity Balance { get; set; }
     }

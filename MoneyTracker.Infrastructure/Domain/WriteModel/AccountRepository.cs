@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using MoneyTracker.Domain.Core;
 using MoneyTracker.Domain.SeedWork;
@@ -58,7 +57,7 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
                 {
                     dbEntry.Expenses.Add(new ExpenseEntity
                     {
-                        AccountId = balance.Id,
+                        BalanceId = balance.Id,
                         Amount = expense.Value.Amount,
                         ExpenseType = expense.ExpenseType.Key
                     });
@@ -80,7 +79,7 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
                 {
                     dbEntry.Incomes.Add(new IncomeEntity
                     {
-                        AccountId = balance.Id,
+                        BalanceId = balance.Id,
                         Amount = income.Value.Amount,
                         ReceivedAt = income.ReceivedAt
                     });
@@ -92,12 +91,12 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
             }
         }
 
-        public Balance GetById(Guid accountId)
+        public Balance Single()
         {
             var account = DbContext.Accounts
                 .Include(x => x.Expenses)
                 .Include(x => x.Incomes)
-                .Single(x => x.BalanceId == accountId);
+                .Single();
 
             return new Balance(
                 account.BalanceId,
