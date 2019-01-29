@@ -10,7 +10,7 @@ namespace MoneyTracker.Infrastructure.Ioc
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<AccountRepository>().As<IBalanceRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<BalanceRepository>().As<IBalanceRepository>().InstancePerLifetimeScope();
 
             builder.RegisterType<MoneyTrackerDbContext>()
                 .AsSelf().InstancePerLifetimeScope()

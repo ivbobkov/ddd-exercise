@@ -24,8 +24,8 @@ namespace MoneyTracker.Application
         {
             using (var uow = _balanceRepository.UnitOfWork)
             {
-                var account = _balanceRepository.Single();
-                account.AddExpense(value, spentAt, expenseType);
+                var balance = _balanceRepository.Get(1);
+                balance.AddExpense(value, spentAt, expenseType);
                 await uow.CommitAsync();
             }
         }
@@ -36,8 +36,8 @@ namespace MoneyTracker.Application
         {
             using (var uow = _balanceRepository.UnitOfWork)
             {
-                var account = _balanceRepository.Single();
-                account.AddIncome(value, receivedAt);
+                var balance = _balanceRepository.Get(1);
+                balance.AddIncome(value, receivedAt);
                 await uow.CommitAsync();
             }
         }
@@ -54,7 +54,7 @@ namespace MoneyTracker.Application
 
         public async Task<BalanceDetailsDto> GetActualBalanceAsync()
         {
-            return await _balanceDetailsProvider.GetActualBalanceAsync();
+            return await _balanceDetailsProvider.GetBalanceAsync(1);
         }
     }
 }

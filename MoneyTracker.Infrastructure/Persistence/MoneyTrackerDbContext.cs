@@ -20,7 +20,7 @@ namespace MoneyTracker.Infrastructure.Persistence
             modelBuilder.ApplyConfiguration(new IncomeEntityConfiguration());
         }
 
-        public virtual DbSet<BalanceEntity> Accounts { get; set; }
+        public virtual DbSet<BalanceEntity> Balance { get; set; }
         public virtual DbSet<ExpenseEntity> Expenses { get; set; }
         public virtual DbSet<IncomeEntity> Incomes { get; set; }
 

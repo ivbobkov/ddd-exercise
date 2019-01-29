@@ -22,7 +22,7 @@ namespace MoneyTracker.Domain.Tests.WriteModel.BalanceAggregate
             var result = account.GetAmount(Currency.Usd);
 
             result.Amount.Should().Be(150);
-            result.Currency.Iso2Code.Should().Be(Currency.Usd.Iso2Code);
+            result.Currency.Code.Should().Be(Currency.Usd.Code);
         }
     }
 }
