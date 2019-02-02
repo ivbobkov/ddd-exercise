@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MoneyTracker.Application;
+using MoneyTracker.Domain.Core;
 
 namespace MoneyTracker.Web.Controllers
 {
@@ -13,38 +15,24 @@ namespace MoneyTracker.Web.Controllers
             _balanceService = balanceService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var accounts = await _balanceService.GetActualBalanceAsync();
             return View(accounts);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Create()
+        [HttpPost]
+        public async Task<IActionResult> AddPurchase(Money expense, DateTime spentAt)
         {
-            await _balanceService.CreateAsync();
+            await _balanceService.AddPurchaseAsync(expense, spentAt);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddExpense(decimal amount)
+        public async Task<IActionResult> AddSalary(Money salary, DateTime receivedAt)
         {
-            //await _balanceService.AddExpenseAsync(
-            //    new Money(amount, Currency.Byn),
-            //    DateTime.Now,
-            //    ExpenseType.Purchase);
-
-            return RedirectToAction("Index");
-        }
-
-        // TODO: demo case, remove
-        [HttpPost]
-        public async Task<IActionResult> AddIncome()
-        {
-            //await _balanceService.AddIncomeAsync(
-            //    new Money(amount, Currency.Byn),
-            //    DateTime.Now);
-
+            await _balanceService.AddSalaryAsync(salary, receivedAt);
             return RedirectToAction("Index");
         }
     }

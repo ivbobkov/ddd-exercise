@@ -2,15 +2,11 @@
 
 namespace MoneyTracker.Infrastructure.Persistence.Entities
 {
-    public class ExpenseEntity
+    public class PurchaseEntity
     {
-        public int ExpenseId { get; set; }
+        public int PurchaseId { get; set; }
         public decimal Amount { get; set; }
         public string CurrencyCode { get; set; }
         public DateTime SpentAt { get; set; }
-        public int ExpenseType { get; set; }
-        public int BalanceId { get; set; }
-
-        public virtual BalanceEntity Balance { get; set; }
     }
 }

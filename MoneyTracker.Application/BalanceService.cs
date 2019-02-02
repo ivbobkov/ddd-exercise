@@ -2,59 +2,42 @@
 using System.Threading.Tasks;
 using MoneyTracker.Domain.Core;
 using MoneyTracker.Domain.ReadModel;
+using MoneyTracker.Domain.SeedWork;
 using MoneyTracker.Domain.WriteModel.BalanceAggregate;
 
 namespace MoneyTracker.Application
 {
     public class BalanceService : IBalanceService
     {
-        private readonly IBalanceDetailsProvider _balanceDetailsProvider;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IBalanceRepository _balanceRepository;
+        private readonly IBalanceDetailsProvider _balanceDetailsProvider;
 
-        public BalanceService(IBalanceDetailsProvider balanceDetailsProvider, IBalanceRepository balanceRepository)
+        public BalanceService(IUnitOfWork unitOfWork, IBalanceRepository balanceRepository,
+            IBalanceDetailsProvider balanceDetailsProvider)
         {
-            _balanceDetailsProvider = balanceDetailsProvider;
+            _unitOfWork = unitOfWork;
             _balanceRepository = balanceRepository;
+            _balanceDetailsProvider = balanceDetailsProvider;
         }
 
-        public async Task AddExpenseAsync(
-            Money value,
-            DateTime spentAt,
-            ExpenseType expenseType)
+        public async Task AddPurchaseAsync(Money expense, DateTime spentAt)
         {
-            using (var uow = _balanceRepository.UnitOfWork)
-            {
-                var balance = _balanceRepository.Get(1);
-                balance.AddExpense(value, spentAt, expenseType);
-                await uow.CommitAsync();
-            }
+            var balance = await _balanceRepository.GetBalanceAsync();
+            balance.AddPurchase(expense, spentAt);
+            await _unitOfWork.CommitAsync();
         }
 
-        public async Task AddIncomeAsync(
-            Money value,
-            DateTime receivedAt)
+        public async Task AddSalaryAsync(Money salary, DateTime receivedAt)
         {
-            using (var uow = _balanceRepository.UnitOfWork)
-            {
-                var balance = _balanceRepository.Get(1);
-                balance.AddIncome(value, receivedAt);
-                await uow.CommitAsync();
-            }
-        }
-
-        public async Task CreateAsync()
-        {
-            using (var uow = _balanceRepository.UnitOfWork)
-            {
-                var account = Balance.Create();
-                _balanceRepository.Add(account);
-                await uow.CommitAsync();
-            }
+            var balance = await _balanceRepository.GetBalanceAsync();
+            balance.AddSalary(salary, receivedAt);
+            await _unitOfWork.CommitAsync();
         }
 
         public async Task<BalanceDetailsDto> GetActualBalanceAsync()
         {
-            return await _balanceDetailsProvider.GetBalanceAsync(1);
+            return await _balanceDetailsProvider.GetBalanceDetailsAsync();
         }
     }
 }

@@ -4,11 +4,11 @@ using MoneyTracker.Infrastructure.Persistence.Entities;
 
 namespace MoneyTracker.Infrastructure.Persistence.MappingProfiles
 {
-    public class ExpenseEntityConfiguration : IEntityTypeConfiguration<ExpenseEntity>
+    public class SalaryEntityConfiguration : IEntityTypeConfiguration<SalaryEntity>
     {
-        public void Configure(EntityTypeBuilder<ExpenseEntity> builder)
+        public void Configure(EntityTypeBuilder<SalaryEntity> builder)
         {
-            builder.HasKey(x => x.ExpenseId);
+            builder.HasKey(x => x.SalaryId);
         }
     }
 }
