@@ -1,4 +1,4 @@
-﻿namespace MoneyTracker.Domain.SeedWork
+﻿namespace MoneyTracker.Domain
 {
     public interface IRepository<T> where T : IAggregateRoot
     {

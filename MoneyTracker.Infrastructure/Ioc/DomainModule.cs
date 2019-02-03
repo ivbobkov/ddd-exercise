@@ -1,7 +1,6 @@
 ﻿using Autofac;
-using MoneyTracker.Domain.Core;
+using MoneyTracker.Domain;
 using MoneyTracker.Domain.ReadModel;
-using MoneyTracker.Domain.SeedWork;
 using MoneyTracker.Domain.WriteModel.BalanceAggregate;
 using MoneyTracker.Infrastructure.Domain;
 using MoneyTracker.Infrastructure.Domain.ReadModel;
@@ -28,10 +27,6 @@ namespace MoneyTracker.Infrastructure.Ioc
 
             builder.RegisterType<BalanceDetailsProvider>()
                 .As<IBalanceDetailsProvider>()
-                .InstancePerLifetimeScope();
-
-            builder.RegisterType<CurrencyProvider>()
-                .As<ICurrencyProvider>()
                 .InstancePerLifetimeScope();
         }
     }

@@ -8,12 +8,10 @@ namespace MoneyTracker.Infrastructure.Domain.ReadModel
 {
     public class BalanceDetailsProvider : IBalanceDetailsProvider
     {
-        private readonly ICurrencyProvider _currencyProvider;
         private readonly MoneyTrackerDbContext _dbContext;
 
-        public BalanceDetailsProvider(ICurrencyProvider currencyProvider, MoneyTrackerDbContext dbContext)
+        public BalanceDetailsProvider(MoneyTrackerDbContext dbContext)
         {
-            _currencyProvider = currencyProvider;
             _dbContext = dbContext;
         }
 
@@ -21,7 +19,7 @@ namespace MoneyTracker.Infrastructure.Domain.ReadModel
         {
             return new BalanceDetailsDto
             {
-                ActualAmount = new Money(100, _currencyProvider.Provide("USD"))
+                ActualAmount = new Money(100, "")
             };
         }
     }

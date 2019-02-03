@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
-using MoneyTracker.Domain.SeedWork;
+using MoneyTracker.Domain;
+using MoneyTracker.Infrastructure.Persistence;
 
-namespace MoneyTracker.Infrastructure.Persistence
+namespace MoneyTracker.Infrastructure.Domain
 {
     public class UnitOfWork : IUnitOfWork
     {

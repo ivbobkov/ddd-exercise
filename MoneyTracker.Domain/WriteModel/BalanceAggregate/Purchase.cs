@@ -1,15 +1,10 @@
 ﻿using System;
 using MoneyTracker.Domain.Core;
-using MoneyTracker.Domain.SeedWork;
 
 namespace MoneyTracker.Domain.WriteModel.BalanceAggregate
 {
     public class Purchase : IEntity<int>
     {
-        protected Purchase()
-        {
-        }
-
         public Purchase(int id, Money value, DateTime spentAt)
         {
             Value = value;

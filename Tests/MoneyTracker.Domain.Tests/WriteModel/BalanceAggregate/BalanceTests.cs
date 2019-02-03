@@ -13,7 +13,7 @@ namespace MoneyTracker.Domain.Tests.WriteModel.BalanceAggregate
         [Test]
         public void AddPurchase_VerifyAdded()
         {
-            var income = new Money(100, new Currency("USD", 1));
+            var income = new Money(100, "USD");
             var spentAt = DateTime.UtcNow;
 
             var balance = CreateEmpty();
@@ -25,7 +25,7 @@ namespace MoneyTracker.Domain.Tests.WriteModel.BalanceAggregate
         [Test]
         public void AddSalary_VerifyAdded()
         {
-            var income = new Money(100, new Currency("USD", 1));
+            var income = new Money(100, "USD");
             var receivedAt = DateTime.UtcNow;
 
             var balance = CreateEmpty();
