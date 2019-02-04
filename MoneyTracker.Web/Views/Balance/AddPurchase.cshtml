@@ -3,9 +3,9 @@
     Layout = "_Layout";
 }
 
-<p>Add purchase</p>
-
 <form asp-controller="Balance" asp-action="AddPurchase">
+    <p>Add purchase</p>
+
     <div>
         <div>
             <label asp-for="Purchase"></label>
@@ -17,12 +17,10 @@
             <input asp-for="Purchase.Currency" />
         </div>
     </div>
-
     <div>
         <label asp-for="SpentAt"></label>
         <input asp-for="SpentAt" type="datetime" />
     </div>
-
     <div>
         <button type="submit">Submit</button>
     </div>

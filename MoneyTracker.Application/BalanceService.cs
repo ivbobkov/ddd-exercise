@@ -11,20 +11,21 @@ namespace MoneyTracker.Application
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IBalanceRepository _balanceRepository;
-        private readonly IBalanceDetailsProvider _balanceDetailsProvider;
+        private readonly IProvideBalanceDetails _provideBalanceDetails;
 
         public BalanceService(IUnitOfWork unitOfWork, IBalanceRepository balanceRepository,
-            IBalanceDetailsProvider balanceDetailsProvider)
+            IProvideBalanceDetails provideBalanceDetails)
         {
             _unitOfWork = unitOfWork;
             _balanceRepository = balanceRepository;
-            _balanceDetailsProvider = balanceDetailsProvider;
+            _provideBalanceDetails = provideBalanceDetails;
         }
 
         public async Task AddPurchaseAsync(Money expense, DateTime spentAt)
         {
             var balance = await _balanceRepository.GetBalanceAsync();
             balance.AddPurchase(expense, spentAt);
+            await _balanceRepository.UpdateAsync(balance);
             await _unitOfWork.CommitAsync();
         }
 
@@ -32,12 +33,13 @@ namespace MoneyTracker.Application
         {
             var balance = await _balanceRepository.GetBalanceAsync();
             balance.AddSalary(salary, receivedAt);
+            await _balanceRepository.UpdateAsync(balance);
             await _unitOfWork.CommitAsync();
         }
 
         public async Task<BalanceDetailsDto> GetActualBalanceAsync()
         {
-            return await _balanceDetailsProvider.GetBalanceDetailsAsync();
+            return await _provideBalanceDetails.GetBalanceDetailsAsync();
         }
     }
 }

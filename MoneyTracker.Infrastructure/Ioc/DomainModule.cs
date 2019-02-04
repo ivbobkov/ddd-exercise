@@ -25,8 +25,8 @@ namespace MoneyTracker.Infrastructure.Ioc
                 .As<IUnitOfWork>()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<BalanceDetailsProvider>()
-                .As<IBalanceDetailsProvider>()
+            builder.RegisterType<ProvideBalanceDetails>()
+                .As<IProvideBalanceDetails>()
                 .InstancePerLifetimeScope();
         }
     }

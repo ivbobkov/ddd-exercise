@@ -9,6 +9,22 @@
     <a asp-action="AddPurchase">Add purchase</a>
 </div>
 
+@foreach (var purchase in Model.Purchases)
+{
+    <div>
+        <p>@purchase.SpentAt</p>
+        <p>@purchase.Amount @purchase.Currency</p>
+    </div>
+}
+
 <div>
     <a asp-action="AddSalary">Add salary</a>
 </div>
+
+@foreach (var salary in Model.Salaries)
+{
+    <div>
+        <p>@salary.ReceivedAt</p>
+        <p>@salary.Amount @salary.Currency</p>
+    </div>
+}

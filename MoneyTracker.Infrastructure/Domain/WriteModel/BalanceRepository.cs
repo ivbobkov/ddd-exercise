@@ -70,7 +70,7 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
             return new Purchase(
                 source.PurchaseId,
                 new Money(source.Amount, source.CurrencyCode),
-                source.SpentAt
+                source.ReceivedAt
             );
         }
 
@@ -79,7 +79,7 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
             return new Salary(
                 source.SalaryId,
                 new Money(source.Amount, source.CurrencyCode),
-                source.ReceivedAt
+                source.SpentAt
             );
         }
 
@@ -87,7 +87,7 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
         {
             destination.Amount = source.Value.Amount;
             destination.CurrencyCode = source.Value.Currency;
-            destination.SpentAt = source.SpentAt;
+            destination.ReceivedAt = source.SpentAt;
             return destination;
         }
 
@@ -97,7 +97,7 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
             {
                 Amount = source.Value.Amount,
                 CurrencyCode = source.Value.Currency,
-                SpentAt = source.SpentAt
+                ReceivedAt = source.SpentAt
             };
         }
 
@@ -105,7 +105,7 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
         {
             destination.Amount = source.Value.Amount;
             destination.CurrencyCode = source.Value.Currency;
-            destination.ReceivedAt = source.ReceivedAt;
+            destination.SpentAt = source.ReceivedAt;
             return destination;
         }
 
@@ -115,7 +115,7 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
             {
                 Amount = source.Value.Amount,
                 CurrencyCode = source.Value.Currency,
-                ReceivedAt = source.ReceivedAt
+                SpentAt = source.ReceivedAt
             };
         }
 
