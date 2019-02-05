@@ -25,6 +25,8 @@ namespace MoneyTracker.Web
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseStaticFiles();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

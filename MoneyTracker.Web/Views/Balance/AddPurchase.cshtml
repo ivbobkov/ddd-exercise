@@ -4,24 +4,29 @@
 }
 
 <form asp-controller="Balance" asp-action="AddPurchase">
-    <p>Add purchase</p>
+    <p class="lead">Add purchase</p>
 
-    <div>
-        <div>
-            <label asp-for="Purchase"></label>
-            <input asp-for="Purchase.Amount" />
-        </div>
-
-        <div>
-            <label asp-for="Purchase.Currency"></label>
-            <input asp-for="Purchase.Currency" />
+    <div class="form-row">
+        <label asp-for="Purchase.Amount" class="col-md-2"></label>
+        <div class="form-group col-md-10">
+            <input asp-for="Purchase.Amount" type="number" class="form-control" />
         </div>
     </div>
-    <div>
-        <label asp-for="SpentAt"></label>
-        <input asp-for="SpentAt" type="datetime" />
+
+    <div class="form-row">
+        <label asp-for="Purchase.Currency" class="col-md-2"></label>
+        <div class="form-group col-md-10">
+            <input asp-for="Purchase.Currency" class="form-control" />
+        </div>
     </div>
-    <div>
-        <button type="submit">Submit</button>
+
+    <div class="form-row">
+        <label asp-for="SpentAt" class="col-md-2"></label>
+        <div class="form-group col-md-10">
+            <input asp-for="SpentAt" class="form-control" />
+        </div>
     </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a asp-controller="Balance" asp-action="Index" class="btn btn-link">Back</a>
 </form>

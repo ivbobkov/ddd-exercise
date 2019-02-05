@@ -5,23 +5,29 @@
 }
 
 <form asp-controller="Balance" asp-action="AddSalary">
-    <p>Add salary</p>
+    <p class="lead">Add salary</p>
 
-    <div>
-        <div>
-            <label asp-for="Salary.Amount"></label>
-            <input asp-for="Salary.Amount" type="number" />
-        </div>
-        <div>
-            <label asp-for="Salary.Currency"></label>
-            <input asp-for="Salary.Currency" />
+    <div class="form-row">
+        <label asp-for="Salary.Amount" class="col-md-2"></label>
+        <div class="form-group col-md-10">
+            <input asp-for="Salary.Amount" type="number" class="form-control" />
         </div>
     </div>
-    <div>
-        <label asp-for="ReceivedAt"></label>
-        <input asp-for="ReceivedAt" type="datetime" />
+
+    <div class="form-row">
+        <label asp-for="Salary.Currency" class="col-md-2"></label>
+        <div class="form-group col-md-10">
+            <input asp-for="Salary.Currency" class="form-control" />
+        </div>
     </div>
-    <div>
-        <button type="submit">Submit</button>
+
+    <div class="form-row">
+        <label asp-for="ReceivedAt" class="col-md-2"></label>
+        <div class="form-group col-md-10">
+            <input asp-for="ReceivedAt" class="form-control" />
+        </div>
     </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a asp-controller="Balance" asp-action="Index" class="btn btn-link">Back</a>
 </form>

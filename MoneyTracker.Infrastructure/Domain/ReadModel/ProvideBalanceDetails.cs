@@ -22,13 +22,13 @@ namespace MoneyTracker.Infrastructure.Domain.ReadModel
 
             return new BalanceDetailsDto
             {
-                Salaries = purchases.Select(x => new SalaryDto
+                Salaries = salaries.Select(x => new SalaryDto
                 {
                     Amount = x.Amount,
                     Currency = x.CurrencyCode,
                     ReceivedAt = x.ReceivedAt
                 }),
-                Purchases = salaries.Select(x => new PurchaseDto
+                Purchases = purchases.Select(x => new PurchaseDto
                 {
                     Amount = x.Amount,
                     Currency = x.CurrencyCode,
