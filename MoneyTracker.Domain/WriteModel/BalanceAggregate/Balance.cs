@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using MoneyTracker.Domain.Core;
-using MoneyTracker.Domain.SeedWork;
 
 namespace MoneyTracker.Domain.WriteModel.BalanceAggregate
 {

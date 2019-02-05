@@ -1,15 +1,10 @@
 ﻿using System;
 using MoneyTracker.Domain.Core;
-using MoneyTracker.Domain.SeedWork;
 
 namespace MoneyTracker.Domain.WriteModel.BalanceAggregate
 {
     public class Salary : IEntity<int>
     {
-        protected Salary()
-        {
-        }
-
         public Salary(int id, Money value, DateTime receivedAt)
         {
             Id = id;

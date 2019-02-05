@@ -2,7 +2,7 @@
 
 namespace MoneyTracker.Domain.ReadModel
 {
-    public interface IBalanceDetailsProvider
+    public interface IProvideBalanceDetails
     {
         Task<BalanceDetailsDto> GetBalanceDetailsAsync();
     }

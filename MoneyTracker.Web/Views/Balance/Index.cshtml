@@ -5,4 +5,34 @@
     Layout = "_Layout";
 }
 
-<h2>title</h2>
+<div class="row">
+    <a asp-action="AddPurchase" class="btn btn-primary">Add purchase</a>
+</div>
+
+@foreach (var purchase in Model.Purchases)
+{
+    <div class="row">
+        <div class="col-md-4">
+            <p>@purchase.SpentAt</p>
+        </div>
+        <div class="col-md-8">
+            <p>@purchase.Amount @purchase.Currency</p>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <a asp-action="AddSalary" class="btn btn-primary">Add salary</a>
+</div>
+
+@foreach (var salary in Model.Salaries)
+{
+    <div class="row">
+        <div class="col-md-4">
+            <p>@salary.ReceivedAt</p>
+        </div>
+        <div class="col-md-8">
+            <p>@salary.Amount @salary.Currency</p>
+        </div>
+    </div>
+}

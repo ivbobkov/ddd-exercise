@@ -10,11 +10,8 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
 {
     public class BalanceRepository : IBalanceRepository
     {
-        private readonly ICurrencyProvider _currencyProvider;
-
-        public BalanceRepository(ICurrencyProvider currencyProvider, MoneyTrackerDbContext dbContext)
+        public BalanceRepository(MoneyTrackerDbContext dbContext)
         {
-            _currencyProvider = currencyProvider;
             DbContext = dbContext;
         }
 
@@ -72,7 +69,7 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
         {
             return new Purchase(
                 source.PurchaseId,
-                new Money(source.Amount, _currencyProvider.Provide(source.CurrencyCode)),
+                new Money(source.Amount, source.CurrencyCode),
                 source.SpentAt
             );
         }
@@ -81,7 +78,7 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
         {
             return new Salary(
                 source.SalaryId,
-                new Money(source.Amount, _currencyProvider.Provide(source.CurrencyCode)),
+                new Money(source.Amount, source.CurrencyCode),
                 source.ReceivedAt
             );
         }
@@ -89,7 +86,7 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
         private static PurchaseEntity ProjectTo(Purchase source, PurchaseEntity destination)
         {
             destination.Amount = source.Value.Amount;
-            destination.CurrencyCode = source.Value.Currency.Code;
+            destination.CurrencyCode = source.Value.Currency;
             destination.SpentAt = source.SpentAt;
             return destination;
         }
@@ -99,7 +96,7 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
             return new PurchaseEntity
             {
                 Amount = source.Value.Amount,
-                CurrencyCode = source.Value.Currency.Code,
+                CurrencyCode = source.Value.Currency,
                 SpentAt = source.SpentAt
             };
         }
@@ -107,7 +104,7 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
         private static SalaryEntity ProjectTo(Salary source, SalaryEntity destination)
         {
             destination.Amount = source.Value.Amount;
-            destination.CurrencyCode = source.Value.Currency.Code;
+            destination.CurrencyCode = source.Value.Currency;
             destination.ReceivedAt = source.ReceivedAt;
             return destination;
         }
@@ -117,7 +114,7 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
             return new SalaryEntity
             {
                 Amount = source.Value.Amount,
-                CurrencyCode = source.Value.Currency.Code,
+                CurrencyCode = source.Value.Currency,
                 ReceivedAt = source.ReceivedAt
             };
         }
