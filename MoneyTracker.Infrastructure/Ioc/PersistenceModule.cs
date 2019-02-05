@@ -1,5 +1,7 @@
 ﻿using Autofac;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using MoneyTracker.Infrastructure.Configuration;
 using MoneyTracker.Infrastructure.Persistence;
 
 namespace MoneyTracker.Infrastructure.Ioc
@@ -10,8 +12,10 @@ namespace MoneyTracker.Infrastructure.Ioc
         {
             builder.Register<DbContextOptions>(cc =>
             {
+                var connectionStrings = cc.Resolve<IOptions<ConnectionStrings>>();
+
                 var optionsBuilder = new DbContextOptionsBuilder<MoneyTrackerDbContext>();
-                optionsBuilder.UseInMemoryDatabase("Database-In-Memory");
+                optionsBuilder.UseSqlServer(connectionStrings.Value.MoneyTrackerConnection);
 
                 return optionsBuilder.Options;
             }).InstancePerLifetimeScope();
