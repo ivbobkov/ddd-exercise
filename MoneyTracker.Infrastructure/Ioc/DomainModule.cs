@@ -28,6 +28,10 @@ namespace MoneyTracker.Infrastructure.Ioc
             builder.RegisterType<ProvideBalanceDetails>()
                 .As<IProvideBalanceDetails>()
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<ProvideCurrency>()
+                .As<IProvideCurrency>()
+                .InstancePerLifetimeScope();
         }
     }
 }

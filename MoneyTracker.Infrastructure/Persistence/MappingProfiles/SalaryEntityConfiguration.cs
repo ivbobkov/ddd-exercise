@@ -9,6 +9,7 @@ namespace MoneyTracker.Infrastructure.Persistence.MappingProfiles
         public void Configure(EntityTypeBuilder<SalaryEntity> builder)
         {
             builder.HasKey(x => x.SalaryId);
+            builder.HasOne(x => x.Currency).WithMany().HasForeignKey(x => x.CurrencyCode).IsRequired();
         }
     }
 }

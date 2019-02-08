@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MoneyTracker.Application;
 using MoneyTracker.Domain.Core;
+using MoneyTracker.Domain.ReadModel;
 using MoneyTracker.Web.Models.Balance;
 
 namespace MoneyTracker.Web.Controllers
@@ -9,10 +10,12 @@ namespace MoneyTracker.Web.Controllers
     public class BalanceController : Controller
     {
         private readonly IBalanceService _balanceService;
+        private readonly IProvideCurrency _provideCurrency;
 
-        public BalanceController(IBalanceService balanceService)
+        public BalanceController(IBalanceService balanceService, IProvideCurrency provideCurrency)
         {
             _balanceService = balanceService;
+            _provideCurrency = provideCurrency;
         }
 
         [HttpGet]
@@ -25,7 +28,9 @@ namespace MoneyTracker.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> AddPurchase()
         {
-            return View("AddPurchase");
+            var viewModel = new PurchaseViewModel(_provideCurrency.FindAll());
+
+            return View("AddPurchase", viewModel);
         }
 
         [HttpPost]
@@ -38,7 +43,9 @@ namespace MoneyTracker.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> AddSalary()
         {
-            return View("AddSalary");
+            var viewModel = new SalaryViewModel(_provideCurrency.FindAll());
+
+            return View("AddSalary", viewModel);
         }
 
         [HttpPost]

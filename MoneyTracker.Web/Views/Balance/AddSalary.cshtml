@@ -1,5 +1,4 @@
-﻿@model MoneyTracker.Web.Models.Balance.SalaryViewModel
-
+﻿@model SalaryViewModel
 @{
     Layout = "_Layout";
 }
@@ -18,7 +17,7 @@
         <div class="form-row">
             <label asp-for="Salary.Currency" class="col-md-2"></label>
             <div class="form-group col-md-10">
-                <input asp-for="Salary.Currency" class="form-control" />
+                <select asp-for="Salary.Currency" asp-items="Model.Currencies" class="form-control"></select>
             </div>
         </div>
 

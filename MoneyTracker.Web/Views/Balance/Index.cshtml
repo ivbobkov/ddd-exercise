@@ -16,12 +16,11 @@
                 <span>@purchase.Amount @purchase.Currency</span>
             </div>
         </div>
-
-        <div class="d-block mt-3 text-right">
-            <a asp-controller="Balance" asp-action="AddPurchase">Add purchase</a>
-        </div>
     }
-
+    
+    <div class="d-block mt-3 text-right">
+        <a asp-controller="Balance" asp-action="AddPurchase">Add purchase</a>
+    </div>
 </div>
 
 <div class="my-3 p-3 bg-white rounded shadow-sm">
@@ -35,10 +34,9 @@
                 <span>@salary.Amount @salary.Currency</span>
             </p>
         </div>
-
-        <div class="d-block mt-3 text-right">
-            <a asp-controller="Balance" asp-action="AddSalary">Add salary</a>
-        </div>
     }
 
+    <div class="d-block mt-3 text-right">
+        <a asp-controller="Balance" asp-action="AddSalary">Add salary</a>
+    </div>
 </div>

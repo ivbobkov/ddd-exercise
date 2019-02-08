@@ -6,7 +6,9 @@ namespace MoneyTracker.Infrastructure.Persistence.Entities
     {
         public int PurchaseId { get; set; }
         public decimal Amount { get; set; }
-        public string CurrencyCode { get; set; }
         public DateTime SpentAt { get; set; }
+        public string CurrencyCode { get; set; }
+
+        public virtual CurrencyEntity Currency { get; set; }
     }
 }
