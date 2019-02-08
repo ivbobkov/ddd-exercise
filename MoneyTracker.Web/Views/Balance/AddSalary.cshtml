@@ -4,30 +4,34 @@
     Layout = "_Layout";
 }
 
-<form asp-controller="Balance" asp-action="AddSalary">
-    <p class="lead">Add salary</p>
+<form asp-controller="Balance" asp-action="AddSalary" class="my-3 p-3 bg-white rounded shadow-sm">
+    <h6 class="border-bottom pb-2 mb-0">Add salary</h6>
 
-    <div class="form-row">
-        <label asp-for="Salary.Amount" class="col-md-2"></label>
-        <div class="form-group col-md-10">
-            <input asp-for="Salary.Amount" type="number" class="form-control" />
+    <div class="text-muted pt-3">
+        <div class="form-row">
+            <label asp-for="Salary.Amount" class="col-md-2"></label>
+            <div class="form-group col-md-10">
+                <input asp-for="Salary.Amount" type="number" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <label asp-for="Salary.Currency" class="col-md-2"></label>
+            <div class="form-group col-md-10">
+                <input asp-for="Salary.Currency" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <label asp-for="ReceivedAt" class="col-md-2"></label>
+            <div class="form-group col-md-10">
+                <input asp-for="ReceivedAt" class="form-control" />
+            </div>
         </div>
     </div>
-
-    <div class="form-row">
-        <label asp-for="Salary.Currency" class="col-md-2"></label>
-        <div class="form-group col-md-10">
-            <input asp-for="Salary.Currency" class="form-control" />
-        </div>
+    
+    <div class="d-block mt-3 text-right">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a asp-controller="Balance" asp-action="Index" class="btn btn-link">Back</a>
     </div>
-
-    <div class="form-row">
-        <label asp-for="ReceivedAt" class="col-md-2"></label>
-        <div class="form-group col-md-10">
-            <input asp-for="ReceivedAt" class="form-control" />
-        </div>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <a asp-controller="Balance" asp-action="Index" class="btn btn-link">Back</a>
 </form>

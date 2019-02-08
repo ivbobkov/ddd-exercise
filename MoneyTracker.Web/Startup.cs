@@ -20,10 +20,6 @@ namespace MoneyTracker.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
-            //services.AddDbContext<MoneyTrackerDbContext>(builder =>
-            //{
-            //    builder.UseSqlServer()
-            //});
             services.AddMvc();
         }
 

@@ -5,34 +5,40 @@
     Layout = "_Layout";
 }
 
-<div class="row">
-    <a asp-action="AddPurchase" class="btn btn-primary">Add purchase</a>
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h6 class="border-bottom pb-2 mb-0">Purchases</h6>
+
+    @foreach (var purchase in Model.Purchases)
+    {
+        <div class="media text-muted pt-3">
+            <div class="media-body pb-3 mb-0 small border-bottom">
+                <strong class="d-block text-dark">@purchase.SpentAt</strong>
+                <span>@purchase.Amount @purchase.Currency</span>
+            </div>
+        </div>
+
+        <div class="d-block mt-3 text-right">
+            <a asp-controller="Balance" asp-action="AddPurchase">Add purchase</a>
+        </div>
+    }
+
 </div>
 
-@foreach (var purchase in Model.Purchases)
-{
-    <div class="row">
-        <div class="col-md-4">
-            <p>@purchase.SpentAt</p>
-        </div>
-        <div class="col-md-8">
-            <p>@purchase.Amount @purchase.Currency</p>
-        </div>
-    </div>
-}
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h6 class="border-bottom pb-2 mb-0">Salaries</h6>
 
-<div class="row">
-    <a asp-action="AddSalary" class="btn btn-primary">Add salary</a>
+    @foreach (var salary in Model.Salaries)
+    {
+        <div class="media text-muted pt-3">
+            <p class="media-body pb-3 mb-0 small border-bottom">
+                <strong class="d-block text-dark">@salary.ReceivedAt</strong>
+                <span>@salary.Amount @salary.Currency</span>
+            </p>
+        </div>
+
+        <div class="d-block mt-3 text-right">
+            <a asp-controller="Balance" asp-action="AddSalary">Add salary</a>
+        </div>
+    }
+
 </div>
-
-@foreach (var salary in Model.Salaries)
-{
-    <div class="row">
-        <div class="col-md-4">
-            <p>@salary.ReceivedAt</p>
-        </div>
-        <div class="col-md-8">
-            <p>@salary.Amount @salary.Currency</p>
-        </div>
-    </div>
-}

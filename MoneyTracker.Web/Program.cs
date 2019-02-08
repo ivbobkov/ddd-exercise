@@ -22,7 +22,7 @@ namespace MoneyTracker.Web
         {
             builder = builder
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.json", false, true)
                 .AddEnvironmentVariables();
 
             if (env.IsDevelopment())
