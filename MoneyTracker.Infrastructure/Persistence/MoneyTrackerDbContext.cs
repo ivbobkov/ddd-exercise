@@ -12,11 +12,12 @@ namespace MoneyTracker.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new CurrencyEntityConfiguration());
             modelBuilder.ApplyConfiguration(new PurchaseEntityConfiguration());
             modelBuilder.ApplyConfiguration(new SalaryEntityConfiguration());
         }
 
+        public virtual DbSet<CurrencyEntity> Currencies { get; set; }
         public virtual DbSet<PurchaseEntity> Purchases { get; set; }
         public virtual DbSet<SalaryEntity> Salaries { get; set; }
     }

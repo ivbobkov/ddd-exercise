@@ -5,30 +5,27 @@
 
 <form asp-controller="Balance" asp-action="AddPurchase" class="my-3 p-3 bg-white rounded shadow-sm">
     <h6 class="border-bottom pb-2 mb-0">Add purchase</h6>
-    
+
     <div class="text-muted pt-3">
         <div class="form-row">
             <label asp-for="Purchase.Amount" class="col-md-2"></label>
-            <div class="form-group col-md-10">
+            <div class="form-group col-md-4">
                 <input asp-for="Purchase.Amount" type="number" class="form-control" />
             </div>
-        </div>
 
-        <div class="form-row">
-            <label asp-for="Purchase.Currency" class="col-md-2"></label>
-            <div class="form-group col-md-10">
-                <input asp-for="Purchase.Currency" class="form-control" />
+            <div class="form-group col-md-2">
+                <select asp-for="Purchase.Currency" asp-items="Model.Currencies" class="form-control"></select>
             </div>
         </div>
 
         <div class="form-row">
             <label asp-for="SpentAt" class="col-md-2"></label>
-            <div class="form-group col-md-10">
+            <div class="form-group col-md-4">
                 <input asp-for="SpentAt" class="form-control" />
             </div>
         </div>
     </div>
-    
+
     <div class="d-block mt-3 text-right">
         <button type="submit" class="btn btn-primary">Submit</button>
         <a asp-controller="Balance" asp-action="Index" class="btn btn-link">Back</a>

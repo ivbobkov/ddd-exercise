@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MoneyTracker.Infrastructure.Persistence;
 
 namespace MoneyTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(MoneyTrackerDbContext))]
-    partial class MoneyTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190208214826_AddedCurrency")]
+    partial class AddedCurrency
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
