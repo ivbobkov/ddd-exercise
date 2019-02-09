@@ -28,7 +28,8 @@ namespace MoneyTracker.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> AddPurchase()
         {
-            var viewModel = new PurchaseViewModel(_provideCurrency.FindAll());
+            var currencies = await _provideCurrency.AllAsync();
+            var viewModel = new PurchaseViewModel().SetCurrencies(currencies);
 
             return View("AddPurchase", viewModel);
         }
@@ -43,7 +44,8 @@ namespace MoneyTracker.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> AddSalary()
         {
-            var viewModel = new SalaryViewModel(_provideCurrency.FindAll());
+            var currencies = await _provideCurrency.AllAsync();
+            var viewModel = new SalaryViewModel().SetCurrencies(currencies);
 
             return View("AddSalary", viewModel);
         }

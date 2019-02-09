@@ -10,11 +10,14 @@ namespace MoneyTracker.Web.Models.Balance
     {
         public SalaryViewModel()
         {
+            Salary = new MoneyViewModel();
+            ReceivedAt = DateTime.UtcNow;
         }
 
-        public SalaryViewModel(IEnumerable<CurrencyDto> currencies)
+        public SalaryViewModel SetCurrencies(IEnumerable<CurrencyDto> currencies)
         {
             Currencies = currencies.Select(x => new SelectListItem(x.Code, x.Code));
+            return this;
         }
 
         public MoneyViewModel Salary { get; set; }
