@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MoneyTracker.Application;
-using MoneyTracker.Domain.Core;
 using MoneyTracker.Domain.ReadModel;
 using MoneyTracker.Web.Models.Balance;
 
@@ -37,7 +36,7 @@ namespace MoneyTracker.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddPurchase(PurchaseViewModel model)
         {
-            await _balanceService.AddPurchaseAsync(new Money(model.Purchase.Amount, model.Purchase.Currency), model.SpentAt);
+            await _balanceService.AddPurchaseAsync(model.Title, model.Purchase.Amount, model.Purchase.Currency, model.SpentAt);
             return RedirectToAction("Index");
         }
 
@@ -53,7 +52,7 @@ namespace MoneyTracker.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddSalary(SalaryViewModel model)
         {
-            await _balanceService.AddSalaryAsync(new Money(model.Salary.Amount, model.Salary.Currency), model.ReceivedAt);
+            await _balanceService.AddSalaryAsync(model.Salary.Amount, model.Salary.Currency, model.ReceivedAt);
             return RedirectToAction("Index");
         }
     }

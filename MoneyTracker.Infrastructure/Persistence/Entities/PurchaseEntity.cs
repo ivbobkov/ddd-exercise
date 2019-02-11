@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MoneyTracker.Infrastructure.Persistence.Entities
 {
@@ -10,5 +11,6 @@ namespace MoneyTracker.Infrastructure.Persistence.Entities
         public string CurrencyCode { get; set; }
 
         public virtual CurrencyEntity Currency { get; set; }
+        public virtual ICollection<PurchaseItemEntity> Items { get; set; } = new List<PurchaseItemEntity>();
     }
 }
