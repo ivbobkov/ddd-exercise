@@ -5,7 +5,7 @@ using MoneyTracker.Domain.Core;
 using MoneyTracker.Domain.WriteModel.BalanceAggregate;
 using NUnit.Framework;
 
-namespace MoneyTracker.Domain.Tests.WriteModel.BalanceAggregate
+namespace MoneyTracker.Domain.Tests.WriteModel
 {
     [TestFixture]
     public class BalanceTests

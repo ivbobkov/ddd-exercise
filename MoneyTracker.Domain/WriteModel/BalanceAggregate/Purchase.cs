@@ -7,9 +7,9 @@ namespace MoneyTracker.Domain.WriteModel.BalanceAggregate
     {
         public Purchase(Guid id, Money value, DateTime spentAt)
         {
+            Id = id;
             Value = value;
             SpentAt = spentAt;
-            Id = id;
         }
 
         public Guid Id { get; }

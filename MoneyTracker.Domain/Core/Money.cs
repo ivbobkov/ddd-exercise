@@ -13,6 +13,11 @@ namespace MoneyTracker.Domain.Core
         public decimal Amount { get; }
         public string Currency { get; }
 
+        public Money Add(decimal amount)
+        {
+            return new Money(Amount + amount, Currency);
+        }
+
         public bool Equals(Money other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -25,15 +30,17 @@ namespace MoneyTracker.Domain.Core
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Money) obj);
+            return Equals((Money)obj);
         }
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                return (Amount.GetHashCode() * 397) ^ (Currency != null ? Currency.GetHashCode() : 0);
-            }
+            return Amount.GetHashCode() ^ Currency.GetHashCode();
+        }
+
+        public static Money Empty(string currency)
+        {
+            return new Money(0, currency);
         }
     }
 }
