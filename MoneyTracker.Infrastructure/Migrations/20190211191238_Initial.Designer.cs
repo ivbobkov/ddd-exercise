@@ -10,8 +10,8 @@ using MoneyTracker.Infrastructure.Persistence;
 namespace MoneyTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(MoneyTrackerDbContext))]
-    [Migration("20190208214826_AddedCurrency")]
-    partial class AddedCurrency
+    [Migration("20190211191238_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,9 +33,8 @@ namespace MoneyTracker.Infrastructure.Migrations
 
             modelBuilder.Entity("MoneyTracker.Infrastructure.Persistence.Entities.PurchaseEntity", b =>
                 {
-                    b.Property<int>("PurchaseId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<Guid>("PurchaseId")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<decimal>("Amount");
 
@@ -53,9 +52,8 @@ namespace MoneyTracker.Infrastructure.Migrations
 
             modelBuilder.Entity("MoneyTracker.Infrastructure.Persistence.Entities.SalaryEntity", b =>
                 {
-                    b.Property<int>("SalaryId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<Guid>("SalaryId")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<decimal>("Amount");
 

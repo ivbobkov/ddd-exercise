@@ -31,9 +31,8 @@ namespace MoneyTracker.Infrastructure.Migrations
 
             modelBuilder.Entity("MoneyTracker.Infrastructure.Persistence.Entities.PurchaseEntity", b =>
                 {
-                    b.Property<int>("PurchaseId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<Guid>("PurchaseId")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<decimal>("Amount");
 
@@ -51,9 +50,8 @@ namespace MoneyTracker.Infrastructure.Migrations
 
             modelBuilder.Entity("MoneyTracker.Infrastructure.Persistence.Entities.SalaryEntity", b =>
                 {
-                    b.Property<int>("SalaryId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<Guid>("SalaryId")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<decimal>("Amount");
 

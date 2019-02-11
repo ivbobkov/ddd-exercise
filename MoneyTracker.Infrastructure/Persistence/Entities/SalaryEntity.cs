@@ -4,7 +4,7 @@ namespace MoneyTracker.Infrastructure.Persistence.Entities
 {
     public class SalaryEntity
     {
-        public int SalaryId { get; set; }
+        public Guid SalaryId { get; set; }
         public decimal Amount { get; set; }
         public DateTime ReceivedAt { get; set; }
         public string CurrencyCode { get; set; }
