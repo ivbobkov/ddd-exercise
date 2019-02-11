@@ -14,11 +14,13 @@ namespace MoneyTracker.Infrastructure.Persistence
         {
             modelBuilder.ApplyConfiguration(new CurrencyEntityConfiguration());
             modelBuilder.ApplyConfiguration(new PurchaseEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new PurchaseItemEntityConfiguration());
             modelBuilder.ApplyConfiguration(new SalaryEntityConfiguration());
         }
 
         public virtual DbSet<CurrencyEntity> Currencies { get; set; }
         public virtual DbSet<PurchaseEntity> Purchases { get; set; }
+        public virtual DbSet<PurchaseItemEntity> PurchaseItems { get; set; }
         public virtual DbSet<SalaryEntity> Salaries { get; set; }
     }
 }

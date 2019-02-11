@@ -13,11 +13,28 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
         }
 
         protected MoneyTrackerDbContext DbContext { get; }
-        protected DbSet<PurchaseEntity> Salaries => DbContext.Set<PurchaseEntity>();
+        protected DbSet<PurchaseEntity> Purchases => DbContext.Set<PurchaseEntity>();
 
-        public void Add(Purchase balance)
+        public void Add(Purchase purchase)
         {
-            throw new System.NotImplementedException();
+            var purchaseEntity = new PurchaseEntity
+            {
+                PurchaseId = purchase.Id,
+                Amount = purchase.Total.Amount,
+                CurrencyCode = purchase.Total.Currency,
+                SpentAt = purchase.SpentAt
+            };
+
+            foreach (var purchaseItem in purchase.Items)
+            {
+                purchaseEntity.Items.Add(new PurchaseItemEntity
+                {
+                    Title = purchaseItem.Title,
+                    Amount = purchaseItem.Amount
+                });
+            }
+
+            Purchases.Add(purchaseEntity);
         }
     }
 }

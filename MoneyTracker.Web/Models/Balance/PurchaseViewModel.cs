@@ -20,6 +20,7 @@ namespace MoneyTracker.Web.Models.Balance
             return this;
         }
 
+        public string Title { get; set; }
         public MoneyViewModel Purchase { get; set; }
         public DateTime SpentAt { get; set; }
         public IEnumerable<SelectListItem> Currencies { get; set; } = new List<SelectListItem>();

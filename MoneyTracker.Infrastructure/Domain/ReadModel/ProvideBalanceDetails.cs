@@ -17,7 +17,7 @@ namespace MoneyTracker.Infrastructure.Domain.ReadModel
 
         public async Task<BalanceDetailsDto> GetBalanceDetailsAsync()
         {
-            var purchases = await _dbContext.Purchases.ToListAsync();
+            var purchases = await _dbContext.Purchases.Include(x => x.Items).ToListAsync();
             var salaries = await _dbContext.Salaries.ToListAsync();
 
             return new BalanceDetailsDto
@@ -30,6 +30,7 @@ namespace MoneyTracker.Infrastructure.Domain.ReadModel
                 }),
                 Purchases = purchases.Select(x => new PurchaseDto
                 {
+                    Title = x.Items.Single().Title,
                     Amount = x.Amount,
                     Currency = x.CurrencyCode,
                     SpentAt = x.SpentAt

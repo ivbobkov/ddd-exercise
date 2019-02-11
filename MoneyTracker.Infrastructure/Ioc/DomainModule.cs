@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using MoneyTracker.Domain;
 using MoneyTracker.Domain.ReadModel;
-using MoneyTracker.Domain.WriteModel.BalanceAggregate;
 using MoneyTracker.Domain.WriteModel.PurchaseAggregate;
 using MoneyTracker.Domain.WriteModel.SalaryAggregate;
 using MoneyTracker.Infrastructure.Domain;
@@ -15,7 +14,6 @@ namespace MoneyTracker.Infrastructure.Ioc
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<BalanceRepository>().As<IBalanceRepository>().InstancePerLifetimeScope();
             builder.RegisterType<PurchaseRepository>().As<IPurchaseRepository>().InstancePerLifetimeScope();
             builder.RegisterType<SalaryRepository>().As<ISalaryRepository>().InstancePerLifetimeScope();
 

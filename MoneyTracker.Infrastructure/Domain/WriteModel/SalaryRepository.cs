@@ -17,7 +17,15 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
 
         public void Add(Salary salary)
         {
-            throw new System.NotImplementedException();
+            var purchaseEntity = new SalaryEntity
+            {
+                SalaryId = salary.Id,
+                Amount = salary.Total.Amount,
+                CurrencyCode = salary.Total.Currency,
+                ReceivedAt = salary.ReceivedAt
+            };
+
+            Salaries.Add(purchaseEntity);
         }
     }
 }
