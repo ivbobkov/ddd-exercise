@@ -3,20 +3,24 @@
     <title>Money Tracker</title>
     <link rel="stylesheet" href="~/lib/twitter-bootstrap/css/bootstrap.css" />
     <link rel="stylesheet" href="~/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker-standalone.css" />
+
 </head>
 
-<body class="bg-light">
+<body>
     <main role="main" class="container">
         @RenderBody()
     </main>
 
     <script src="~/lib/jquery/jquery.js"></script>
-    <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
     <script src="~/lib/moment.js/moment.js"></script>
     <script src="~/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 
     <script>
-        $('.datepicker').datetimepicker();
+        $(function () {
+            $('.datepicker').datetimepicker();
+        });
     </script>
 </body>
 </html>

@@ -3,38 +3,36 @@
     Layout = "_Layout";
 }
 
-<form asp-controller="Balance" asp-action="AddPurchase" class="my-3 p-3 bg-white rounded shadow-sm">
-    <h6 class="border-bottom pb-2 mb-0">Add purchase</h6>
+<form asp-controller="Balance" asp-action="AddPurchase">
+    <h6>Add purchase</h6>
 
-    <div class="text-muted pt-3">
-        <div class="form-row">
-            <label asp-for="Title" class="col-md-2"></label>
-            <div class="form-group col-md-4">
-                <input asp-for="Title" type="text" class="form-control" />
+    <div>
+        <div>
+            <label asp-for="Title"></label>
+            <div>
+                <input asp-for="Title" type="text" />
             </div>
         </div>
 
-        <div class="form-row">
-            <label asp-for="Purchase.Amount" class="col-md-2"></label>
-            <div class="form-group col-md-4">
-                <input asp-for="Purchase.Amount" type="number" class="form-control" />
-            </div>
-
-            <div class="form-group col-md-2">
-                <select asp-for="Purchase.Currency" asp-items="Model.Currencies" class="form-control"></select>
-            </div>
+        <div>
+            <label asp-for="Purchase.Amount"></label>
+            <input asp-for="Purchase.Amount" type="number" />
+            <select asp-for="Purchase.Currency" asp-items="Model.Currencies"></select>
         </div>
 
-        <div class="form-row">
-            <label asp-for="SpentAt" class="col-md-2"></label>
-            <div class="form-group col-md-4">
-                <input asp-for="SpentAt" class="form-control" />
+        <div>
+            <label asp-for="SpentAt"></label>
+            <div class="input-group date datepicker">
+                <input type="text" asp-for="SpentAt" class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
             </div>
         </div>
     </div>
 
-    <div class="d-block mt-3 text-right">
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <a asp-controller="Balance" asp-action="Index" class="btn btn-link">Back</a>
+    <div>
+        <button type="submit">Submit</button>
+        <a asp-controller="Balance" asp-action="Index">Back</a>
     </div>
 </form>
