@@ -5,38 +5,53 @@
     Layout = "_Layout";
 }
 
-<div class="my-3 p-3 bg-white rounded shadow-sm">
-    <h6 class="border-bottom pb-2 mb-0">Purchases</h6>
-
-    @foreach (var purchase in Model.Purchases)
-    {
-        <div class="media text-muted pt-3">
-            <div class="media-body pb-3 mb-0 small border-bottom">
-                <strong class="d-block text-dark">@purchase.SpentAt</strong>
-                <span>@purchase.Title @purchase.Amount @purchase.Currency</span>
-            </div>
-        </div>
-    }
-    
-    <div class="d-block mt-3 text-right">
-        <a asp-controller="Balance" asp-action="AddPurchase">Add purchase</a>
+<div class="row">
+    <div class="col-md-12">
+        <h3>Purchases</h3>
     </div>
 </div>
 
-<div class="my-3 p-3 bg-white rounded shadow-sm">
-    <h6 class="border-bottom pb-2 mb-0">Salaries</h6>
+@*<div class="row">
+        <div class="col-md-8"><strong>Title</strong></div>
+        <div class="col-md-4"><strong>Amount</strong></div>
+    </div>*@
 
-    @foreach (var salary in Model.Salaries)
-    {
-        <div class="media text-muted pt-3">
-            <p class="media-body pb-3 mb-0 small border-bottom">
-                <strong class="d-block text-dark">@salary.ReceivedAt</strong>
-                <span>@salary.Amount @salary.Currency</span>
-            </p>
+@foreach (var purchase in Model.Purchases)
+{
+    <div class="row">
+        <div class="col-md-2">
+            <p>@purchase.SpentAt.AsFormatted()</p>
         </div>
-    }
-
-    <div class="d-block mt-3 text-right">
-        <a asp-controller="Balance" asp-action="AddSalary">Add salary</a>
+        <div class="col-md-2">
+            <p>@purchase.Amount @purchase.Currency</p>
+        </div>
+        <div class="col-md-8">
+            @foreach (var item in purchase.Purchases)
+            {
+                <p>@item.Title @item.Amount @purchase.Currency</p>
+            }
+        </div>
     </div>
+}
+
+<div>
+    <a asp-controller="Purchase" asp-action="AddPurchase" class="btn btn-link">Add purchase</a>
+</div>
+
+<h3>Salaries</h3>
+
+@foreach (var salary in Model.Salaries)
+{
+    <div class="row">
+        <div class="col-md-3">
+            <p>@salary.ReceivedAt.AsFormatted()</p>
+        </div>
+        <div class="col-md-4">
+            <p>@salary.Amount @salary.Currency</p>
+        </div>
+    </div>
+}
+
+<div>
+    <a asp-controller="Salary" asp-action="AddSalary" class="btn btn-link">Add salary</a>
 </div>

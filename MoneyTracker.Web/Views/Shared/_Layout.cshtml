@@ -3,20 +3,34 @@
     <title>Money Tracker</title>
     <link rel="stylesheet" href="~/lib/twitter-bootstrap/css/bootstrap.css" />
     <link rel="stylesheet" href="~/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker-standalone.css" />
+
 </head>
 
-<body class="bg-light">
-    <main role="main" class="container">
+<body>
+    <header class="container">
+        <h3 class="text-muted">
+            <a asp-controller="Balance" asp-action="Index">Home</a>
+        </h3>
+    </header>
+
+    <main class="container">
         @RenderBody()
     </main>
 
     <script src="~/lib/jquery/jquery.js"></script>
-    <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
     <script src="~/lib/moment.js/moment.js"></script>
     <script src="~/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 
     <script>
-        $('.datepicker').datetimepicker();
+        $(function () {
+            $('.datepicker').datetimepicker({
+                format: 'DD/MM/YYYY HH:mm'
+            });
+        });
     </script>
+
+    @RenderSection("PageScripts", false)
 </body>
 </html>
