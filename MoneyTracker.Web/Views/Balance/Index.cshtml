@@ -5,43 +5,41 @@
     Layout = "_Layout";
 }
 
-<div class="jumbotron">
-    <h3>Purchases</h3>
+<h3>Purchases</h3>
 
-    @foreach (var purchase in Model.Purchases)
-    {
-        <div class="row">
-            <div class="col-md-3">
-                <span>@purchase.SpentAt</span>
-            </div>
-            <div class="col-md-4">
-                <span>@purchase.Amount @purchase.Currency</span>
-                <p>@purchase.Title</p>
-            </div>
+@foreach (var purchase in Model.Purchases)
+{
+    <div class="row">
+        <div class="col-md-3">
+            <p>@purchase.SpentAt.AsFormatted()</p>
         </div>
-    }
-
-    <div>
-        <a asp-controller="Purchase" asp-action="AddPurchase" class="btn btn-link">Add purchase</a>
+        <div class="col-md-4">
+            <p>@purchase.Title</p>
+        </div>
+        <div class="col-md-4">
+            <p>@purchase.Amount @purchase.Currency</p>
+        </div>
     </div>
+}
+
+<div>
+    <a asp-controller="Purchase" asp-action="AddPurchase" class="btn btn-link">Add purchase</a>
 </div>
 
-<div class="jumbotron">
-    <h3>Salaries</h3>
+<h3>Salaries</h3>
 
-    @foreach (var salary in Model.Salaries)
-    {
-        <div class="row">
-            <div class="col-md-3">
-                <span>@salary.ReceivedAt</span>
-            </div>
-            <div class="col-md-4">
-                <span>@salary.Amount @salary.Currency</span>
-            </div>
+@foreach (var salary in Model.Salaries)
+{
+    <div class="row">
+        <div class="col-md-3">
+            <p>@salary.ReceivedAt.AsFormatted()</p>
         </div>
-    }
-
-    <div>
-        <a asp-controller="Salary" asp-action="AddSalary" class="btn btn-link">Add salary</a>
+        <div class="col-md-4">
+            <p>@salary.Amount @salary.Currency</p>
+        </div>
     </div>
+}
+
+<div>
+    <a asp-controller="Salary" asp-action="AddSalary" class="btn btn-link">Add salary</a>
 </div>

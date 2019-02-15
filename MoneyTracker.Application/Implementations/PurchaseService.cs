@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MoneyTracker.Domain;
 using MoneyTracker.Domain.WriteModel.PurchaseAggregate;
@@ -16,10 +17,14 @@ namespace MoneyTracker.Application.Implementations
             _purchaseRepository = purchaseRepository;
         }
 
-        public async Task AddPurchaseAsync(string title, decimal amount, string currency, DateTime spentAt)
+        public async Task AddPurchaseAsync(string currency, DateTime spentAt, IEnumerable<PurchaseItem> purchaseItems)
         {
             var purchase = Purchase.Create(currency, spentAt);
-            purchase.AddItem(title, amount);
+            foreach (var purchaseItem in purchaseItems)
+            {
+                purchase.AddItem(purchaseItem.Title, purchaseItem.Amount);
+            }
+
             _purchaseRepository.Add(purchase);
             await _unitOfWork.CommitAsync();
         }

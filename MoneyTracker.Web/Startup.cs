@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MoneyTracker.Infrastructure.Configuration;
 using MoneyTracker.Infrastructure.Ioc;
+using MoneyTracker.Web.Infrastructure;
 
 namespace MoneyTracker.Web
 {
@@ -19,6 +20,7 @@ namespace MoneyTracker.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<CurrencyViewHelper>();
             services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
             services.AddMvc();
         }
@@ -39,7 +41,11 @@ namespace MoneyTracker.Web
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvcWithDefaultRoute();
+            app.UseMvc(x => x.MapRoute("/", "{controller}/{action}", new
+            {
+                controller = "Balance",
+                action = "Index"
+            }));
         }
     }
 }

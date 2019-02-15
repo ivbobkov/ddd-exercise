@@ -1,36 +1,54 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MoneyTracker.Application;
-using MoneyTracker.Domain.ReadModel;
-using MoneyTracker.Web.Models.Balance;
+using MoneyTracker.Domain.WriteModel.PurchaseAggregate;
+using MoneyTracker.Web.Infrastructure;
+using MoneyTracker.Web.Models.Purchase;
 
 namespace MoneyTracker.Web.Controllers
 {
     public class PurchaseController : Controller
     {
-        private readonly IProvideCurrency _provideCurrency;
         private readonly IPurchaseService _purchaseService;
 
-        public PurchaseController(IProvideCurrency provideCurrency, IPurchaseService purchaseService)
+        public PurchaseController(IPurchaseService purchaseService)
         {
-            _provideCurrency = provideCurrency;
             _purchaseService = purchaseService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddPurchase()
+        public IActionResult AddPurchase()
         {
-            var currencies = await _provideCurrency.AllAsync();
-            var viewModel = new PurchaseViewModel().SetCurrencies(currencies);
+            var model = TempData.Get<PurchaseViewModel>("Model") ?? new PurchaseViewModel();
 
-            return View("AddPurchase", viewModel);
+            return View("AddPurchase", model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddPurchase(PurchaseViewModel model)
+        public async Task<IActionResult> Create([FromForm] PurchaseViewModel model)
         {
-            await _purchaseService.AddPurchaseAsync(model.Title, model.Purchase.Amount, model.Purchase.Currency, model.SpentAt);
+            var purchases = model.Purchases.Select(x => new PurchaseItem(x.Title, x.Amount));
+            await _purchaseService.AddPurchaseAsync(model.Currency, model.SpentAt, purchases);
             return RedirectToAction("Index", "Balance");
+        }
+
+        [HttpPost]
+        public IActionResult RemoveItem(int index, [FromForm] PurchaseViewModel model)
+        {
+            model.Purchases.RemoveAt(index);
+            TempData.Put("Model", model);
+
+            return RedirectToAction("AddPurchase");
+        }
+
+        [HttpPost]
+        public IActionResult AddItem([FromForm] PurchaseViewModel model)
+        {
+            model.Purchases.Add(new PurchaseItemViewModel());
+            TempData.Put("Model", model);
+
+            return RedirectToAction("AddPurchase");
         }
     }
 }
