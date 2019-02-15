@@ -8,7 +8,13 @@
 </head>
 
 <body>
-    <main role="main" class="container">
+    <header class="container">
+        <h3 class="text-muted">
+            <a asp-controller="Balance" asp-action="Index">Home</a>
+        </h3>
+    </header>
+
+    <main class="container">
         @RenderBody()
     </main>
 
