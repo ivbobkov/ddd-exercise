@@ -38,7 +38,7 @@
                 <input asp-for="Purchases[index].Title" type="text" class="form-control" />
             </div>
             <div class="col-md-2">
-                <input asp-for="Purchases[index].Amount" type="number" class="form-control" />
+                <input asp-for="Purchases[index].Amount" type="number" class="form-control" min="0" step=".01" />
             </div>
             <div class="col-md-2">
                 <button type="submit" asp-controller="Purchase" asp-action="RemoveItem" name="index" value="@index" class="btn btn-block btn-warning">

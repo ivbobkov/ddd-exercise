@@ -5,19 +5,31 @@
     Layout = "_Layout";
 }
 
-<h3>Purchases</h3>
+<div class="row">
+    <div class="col-md-12">
+        <h3>Purchases</h3>
+    </div>
+</div>
+
+@*<div class="row">
+        <div class="col-md-8"><strong>Title</strong></div>
+        <div class="col-md-4"><strong>Amount</strong></div>
+    </div>*@
 
 @foreach (var purchase in Model.Purchases)
 {
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <p>@purchase.SpentAt.AsFormatted()</p>
         </div>
-        <div class="col-md-4">
-            <p>@purchase.Title</p>
-        </div>
-        <div class="col-md-4">
+        <div class="col-md-2">
             <p>@purchase.Amount @purchase.Currency</p>
+        </div>
+        <div class="col-md-8">
+            @foreach (var item in purchase.Purchases)
+            {
+                <p>@item.Title @item.Amount @purchase.Currency</p>
+            }
         </div>
     </div>
 }

@@ -2,6 +2,7 @@
 {
     public static class ViewConstants
     {
-        public const string DefaultDateTime = @"yyyy:MM:dd hh:mm";
+        public const string DefaultDateTimeFormatString = "{0:dd/MM/yyyy HH:mm}";
+        public const string DefaultDateTime = @"dd/MM/yyyy HH:mm";
     }
 }
