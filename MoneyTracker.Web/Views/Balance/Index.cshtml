@@ -6,7 +6,7 @@
 }
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 col-sm-12">
         <h3>Purchases</h3>
     </div>
 </div>
@@ -14,13 +14,13 @@
 @foreach (var purchase in Model.Purchases.OrderByDescending(x => x.SpentAt))
 {
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-2 col-sm-3">
             <p>@purchase.SpentAt.AsFormatted()</p>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 col-sm-3">
             <p>@purchase.Amount @purchase.Currency</p>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 col-sm-6">
             @foreach (var item in purchase.Purchases)
             {
                 <p>@item.Title @(item.Amount - item.Discount) @purchase.Currency</p>
