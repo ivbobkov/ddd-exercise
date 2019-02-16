@@ -36,6 +36,7 @@ namespace MoneyTracker.Infrastructure.Domain.ReadModel
                     Purchases = x.Items.Select(c => new PurchaseItemDto
                     {
                         Amount = c.Amount,
+                        Discount = c.Discount,
                         Title = c.Title
                     })
                 })

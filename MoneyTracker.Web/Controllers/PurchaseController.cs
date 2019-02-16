@@ -28,7 +28,7 @@ namespace MoneyTracker.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] PurchaseViewModel model)
         {
-            var purchases = model.Purchases.Select(x => new PurchaseItem(x.Title, x.Amount));
+            var purchases = model.Purchases.Select(x => new PurchaseItem(x.Title, x.Amount, x.Discount));
             await _purchaseService.AddPurchaseAsync(model.Currency, model.SpentAt, purchases);
             return RedirectToAction("Index", "Balance");
         }

@@ -20,10 +20,10 @@ namespace MoneyTracker.Domain.WriteModel.PurchaseAggregate
         public DateTime SpentAt { get; }
         public IEnumerable<PurchaseItem> Items => _items;
 
-        public void AddItem(string title, decimal amount)
+        public void AddItem(string title, decimal amount, decimal discount)
         {
-            Total = Total.Add(amount);
-            _items.Add(new PurchaseItem(title, amount));
+            Total = Total.Sum(amount).Min(discount);
+            _items.Add(new PurchaseItem(title, amount, discount));
         }
 
         public static Purchase Create(string currency, DateTime spentAt)

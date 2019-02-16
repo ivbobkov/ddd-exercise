@@ -12,8 +12,8 @@ namespace MoneyTracker.Domain.Tests.WriteModel
         public void AddItem_AddData_VerifyAmount()
         {
             var purchase = Purchase.Create("USD", DateTime.UtcNow);
-            purchase.AddItem("Position one", 100);
-            purchase.AddItem("Position two", 150);
+            purchase.AddItem("Position one", 100, 0);
+            purchase.AddItem("Position two", 150, 0);
 
             purchase.Total.Amount.Should().Be(250);
             purchase.Total.Currency.Should().Be("USD");

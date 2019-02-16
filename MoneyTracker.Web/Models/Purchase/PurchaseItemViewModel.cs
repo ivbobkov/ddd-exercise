@@ -4,5 +4,6 @@
     {
         public string Title { get; set; }
         public decimal Amount { get; set; }
+        public decimal Discount { get; set; }
     }
 }

@@ -13,9 +13,14 @@ namespace MoneyTracker.Domain.Core
         public decimal Amount { get; }
         public string Currency { get; }
 
-        public Money Add(decimal amount)
+        public Money Sum(decimal amount)
         {
             return new Money(Amount + amount, Currency);
+        }
+
+        public Money Min(decimal amount)
+        {
+            return new Money(Amount - amount, Currency);
         }
 
         public bool Equals(Money other)

@@ -11,12 +11,7 @@
     </div>
 </div>
 
-@*<div class="row">
-        <div class="col-md-8"><strong>Title</strong></div>
-        <div class="col-md-4"><strong>Amount</strong></div>
-    </div>*@
-
-@foreach (var purchase in Model.Purchases)
+@foreach (var purchase in Model.Purchases.OrderByDescending(x => x.SpentAt))
 {
     <div class="row">
         <div class="col-md-2">
@@ -28,19 +23,21 @@
         <div class="col-md-8">
             @foreach (var item in purchase.Purchases)
             {
-                <p>@item.Title @item.Amount @purchase.Currency</p>
+                <p>@item.Title @(item.Amount - item.Discount) @purchase.Currency</p>
             }
         </div>
     </div>
 }
 
-<div>
-    <a asp-controller="Purchase" asp-action="AddPurchase" class="btn btn-link">Add purchase</a>
+<div class="row">
+    <div class="col-md-12">
+        <a asp-controller="Purchase" asp-action="AddPurchase" class="btn btn-link">Add purchase</a>
+    </div>
 </div>
 
 <h3>Salaries</h3>
 
-@foreach (var salary in Model.Salaries)
+@foreach (var salary in Model.Salaries.OrderByDescending(x => x.ReceivedAt))
 {
     <div class="row">
         <div class="col-md-3">
@@ -52,6 +49,8 @@
     </div>
 }
 
-<div>
-    <a asp-controller="Salary" asp-action="AddSalary" class="btn btn-link">Add salary</a>
+<div class="row">
+    <div class="col-md-12">
+        <a asp-controller="Salary" asp-action="AddSalary" class="btn btn-link">Add salary</a>
+    </div>
 </div>

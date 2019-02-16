@@ -22,7 +22,7 @@ namespace MoneyTracker.Application.Implementations
             var purchase = Purchase.Create(currency, spentAt);
             foreach (var purchaseItem in purchaseItems)
             {
-                purchase.AddItem(purchaseItem.Title, purchaseItem.Amount);
+                purchase.AddItem(purchaseItem.Title, purchaseItem.Amount, purchaseItem.Discount);
             }
 
             _purchaseRepository.Add(purchase);
