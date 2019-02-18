@@ -7,6 +7,8 @@ namespace MoneyTracker.Application
 {
     public interface IPurchaseService : IApplicationService
     {
-        Task AddPurchaseAsync(string currency, DateTime spentAt, IEnumerable<PurchaseItem> purchaseItems);
+        Task<Purchase> FindAsync(Guid purchaseId);
+        Task AddAsync(string currency, DateTime spentAt, IEnumerable<PurchaseItem> items);
+        Task UpdateAsync(Guid purchaseId, string currency, DateTime spentAt, IEnumerable<PurchaseItem> items);
     }
 }

@@ -1,16 +1,25 @@
-﻿namespace MoneyTracker.Domain.WriteModel.PurchaseAggregate
+﻿using System;
+
+namespace MoneyTracker.Domain.WriteModel.PurchaseAggregate
 {
-    public class PurchaseItem
+    public class PurchaseItem : IEntity<Guid>
     {
-        public PurchaseItem(string title, decimal amount, decimal discount)
+        public PurchaseItem(Guid id, string title, decimal amount, decimal discount)
         {
+            Id = id;
             Title = title;
             Amount = amount;
             Discount = discount;
         }
 
-        public string Title { get; }
-        public decimal Amount { get; }
-        public decimal Discount { get; }
+        public Guid Id { get; internal set; }
+        public string Title { get; internal set; }
+        public decimal Amount { get; internal set; }
+        public decimal Discount { get; internal set; }
+
+        public static PurchaseItem Create(string title, decimal amount, decimal discount)
+        {
+            return new PurchaseItem(Guid.NewGuid(), title, amount, discount);
+        }
     }
 }

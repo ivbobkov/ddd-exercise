@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MoneyTracker.Application;
@@ -18,18 +19,43 @@ namespace MoneyTracker.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddPurchase()
+        public IActionResult Create()
         {
-            var model = TempData.Get<PurchaseViewModel>("Model") ?? new PurchaseViewModel();
+            var model = TempData.Get<PurchaseViewModel>("Model");
+            model = model ?? PurchaseViewModel.CreateNew();
 
-            return View("AddPurchase", model);
+            return View("InputForm", model);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] PurchaseViewModel model)
         {
-            var purchases = model.Purchases.Select(x => new PurchaseItem(x.Title, x.Amount, x.Discount));
-            await _purchaseService.AddPurchaseAsync(model.Currency, model.SpentAt, purchases);
+            var purchases = model.Purchases.Select(x => new PurchaseItem(x.PurchaseItemId, x.Title, x.Amount, x.Discount));
+
+            await _purchaseService.AddAsync(model.Currency, model.SpentAt, purchases);
+            return RedirectToAction("Index", "Balance");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(Guid purchaseId)
+        {
+            var model = TempData.Get<PurchaseViewModel>("Model");
+
+            if (model == null)
+            {
+                var purchase = await _purchaseService.FindAsync(purchaseId);
+                model = PurchaseViewModel.From(purchase);
+            }
+
+            return View("InputForm", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update([FromForm] PurchaseViewModel model)
+        {
+            var purchases = model.Purchases.Select(x => new PurchaseItem(x.PurchaseItemId, x.Title, x.Amount, x.Discount));
+
+            await _purchaseService.UpdateAsync(model.PurchaseId, model.Currency, model.SpentAt, purchases);
             return RedirectToAction("Index", "Balance");
         }
 
@@ -39,7 +65,9 @@ namespace MoneyTracker.Web.Controllers
             model.Purchases.RemoveAt(index);
             TempData.Put("Model", model);
 
-            return RedirectToAction("AddPurchase");
+            return model.IsNew
+                ? RedirectToAction("Create")
+                : RedirectToAction("Update");
         }
 
         [HttpPost]
@@ -48,7 +76,9 @@ namespace MoneyTracker.Web.Controllers
             model.Purchases.Add(new PurchaseItemViewModel());
             TempData.Put("Model", model);
 
-            return RedirectToAction("AddPurchase");
+            return model.IsNew
+                ? RedirectToAction("Create")
+                : RedirectToAction("Update");
         }
     }
 }

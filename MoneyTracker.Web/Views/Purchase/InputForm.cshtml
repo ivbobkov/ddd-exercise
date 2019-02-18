@@ -2,10 +2,14 @@
 @inject CurrencyViewHelper CurrencyViewHelper
 @{
     Layout = "_Layout";
+    var message = Model.IsNew ? "Add purchase" : "Update purchase";
 }
 
-<form role="form" method="post" asp-controller="Purchase" asp-action="Create">
-    <h3>Add purchase</h3>
+<form role="form" method="post" asp-controller="Purchase">
+    <input asp-for="PurchaseId" type="hidden" />
+    <input asp-for="IsNew" type="hidden" />
+
+    <h3>@message</h3>
 
     <div class="row">
         <div class="col-md-8 form-group">
@@ -36,6 +40,7 @@
     {
         <div class="row">
             <div class="col-md-6 col-sm-12 form-group">
+                <input asp-for="Purchases[index].PurchaseItemId" type="hidden" class="form-control" />
                 <label asp-for="Purchases[index].Title" class="control-label visible-sm"></label>
                 <input asp-for="Purchases[index].Title" type="text" class="form-control" />
             </div>

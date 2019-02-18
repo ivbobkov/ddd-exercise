@@ -30,11 +30,13 @@ namespace MoneyTracker.Infrastructure.Domain.ReadModel
                 }),
                 Purchases = purchases.Select(x => new PurchaseDto
                 {
+                    PurchaseId = x.PurchaseId,
                     Amount = x.Amount,
                     Currency = x. CurrencyCode,
                     SpentAt = x.SpentAt,
                     Purchases = x.Items.Select(c => new PurchaseItemDto
                     {
+                        PurchaseItemId = c.PurchaseItemId,
                         Amount = c.Amount,
                         Discount = c.Discount,
                         Title = c.Title
