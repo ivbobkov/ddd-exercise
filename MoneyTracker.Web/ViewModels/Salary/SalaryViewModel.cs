@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MoneyTracker.Web.Models.Salary
+namespace MoneyTracker.Web.ViewModels.Salary
 {
     public class SalaryViewModel
     {

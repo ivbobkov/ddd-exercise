@@ -8,7 +8,7 @@ namespace MoneyTracker.Infrastructure.Persistence.MappingProfiles
     {
         public void Configure(EntityTypeBuilder<PurchaseItemEntity> builder)
         {
-            builder.HasKey(x => new { x.PurchaseId, x.Title, x.Amount });
+            builder.HasKey(x => x.PurchaseItemId);
 
             builder.HasOne(x => x.Purchase).WithMany(x => x.Items).IsRequired();
         }

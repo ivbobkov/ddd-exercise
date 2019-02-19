@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MoneyTracker.Application;
-using MoneyTracker.Web.Models.Salary;
+using MoneyTracker.Web.ViewModels.Salary;
 
 namespace MoneyTracker.Web.Controllers
 {
@@ -19,14 +19,14 @@ namespace MoneyTracker.Web.Controllers
         {
             var viewModel = new SalaryViewModel();
 
-            return View("AddSalary", viewModel);
+            return View("InputForm", viewModel);
         }
 
         [HttpPost]
         public async Task<IActionResult> AddSalary([FromForm]SalaryViewModel model)
         {
             await _salaryService.AddSalaryAsync(model.Salary.Amount, model.Salary.Currency, model.ReceivedAt);
-            return RedirectToAction("Index", "Balance");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

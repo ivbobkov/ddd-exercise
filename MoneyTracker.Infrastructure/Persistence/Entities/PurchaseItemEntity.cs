@@ -4,6 +4,8 @@ namespace MoneyTracker.Infrastructure.Persistence.Entities
 {
     public class PurchaseItemEntity
     {
+        public Guid PurchaseItemId { get; set; }
+
         public Guid PurchaseId { get; set; }
         public string Title { get; set; }
         public decimal Amount { get; set; }

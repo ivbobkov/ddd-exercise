@@ -1,4 +1,4 @@
-﻿@model MoneyTracker.Web.Models.Salary.SalaryViewModel
+﻿@model MoneyTracker.Web.ViewModels.Salary.SalaryViewModel
 @inject CurrencyViewHelper CurrencyViewHelper
 @{
     Layout = "_Layout";
@@ -29,6 +29,6 @@
 
     <div>
         <button type="submit">Submit</button>
-        <a asp-controller="Balance" asp-action="Index">Back</a>
+        <a asp-controller="Home" asp-action="Index">Back</a>
     </div>
 </form>

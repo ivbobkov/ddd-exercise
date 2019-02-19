@@ -1,11 +1,16 @@
-﻿@model MoneyTracker.Web.Models.Purchase.PurchaseViewModel
+﻿@model MoneyTracker.Web.ViewModels.Purchase.PurchaseViewModel
 @inject CurrencyViewHelper CurrencyViewHelper
+@inject IViewLocalizer Localizer
 @{
     Layout = "_Layout";
+    var message = Model.IsNew ? Localizer["AddPurchase_Title"] : Localizer["UpdatePurchase_Title"];
 }
 
-<form role="form" method="post" asp-controller="Purchase" asp-action="Create">
-    <h3>Add purchase</h3>
+<form role="form" method="post" asp-controller="Purchase">
+    <input asp-for="PurchaseId" type="hidden" />
+    <input asp-for="IsNew" type="hidden" />
+
+    <h3>@message</h3>
 
     <div class="row">
         <div class="col-md-8 form-group">
@@ -36,6 +41,7 @@
     {
         <div class="row">
             <div class="col-md-6 col-sm-12 form-group">
+                <input asp-for="Purchases[index].PurchaseItemId" type="hidden" class="form-control" />
                 <label asp-for="Purchases[index].Title" class="control-label visible-sm"></label>
                 <input asp-for="Purchases[index].Title" type="text" class="form-control" />
             </div>
@@ -49,9 +55,9 @@
             </div>
             <div class="col-md-2 col-sm-4 form-group">
                 <label class="control-label visible-sm">&nbsp;</label>
-                <button type="submit" asp-controller="Purchase" asp-action="RemoveItem" name="index" value="@index" class="btn btn-block btn-warning">
+                <button type="submit" asp-action="RemoveItem" name="index" value="@index" class="btn btn-block btn-warning">
                     <b class="glyphicon glyphicon-remove"></b>
-                    <span>Remove item</span>
+                    <span>@Localizer["RemoveItem_Button"]</span>
                 </button>
             </div>
         </div>
@@ -62,12 +68,12 @@
             <button type="submit" class="btn btn-block btn-success">Submit</button>
         </div>
         <div class="col-md-2 col-sm-4">
-            <a asp-controller="Balance" asp-action="Index" class="btn btn-block btn-link">Back</a>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-block btn-link">Back</a>
         </div>
         <div class="col-md-2 col-sm-4 col-md-offset-6">
-            <button asp-controller="Purchase" asp-action="AddItem" type="submit" class="btn btn-block btn-success">
+            <button asp-action="AddItem" type="submit" class="btn btn-block btn-success">
                 <b class="glyphicon glyphicon-plus"></b>
-                <span>Add item</span>
+                <span>@Localizer["AddItem_Button"]</span>
             </button>
         </div>
     </div>

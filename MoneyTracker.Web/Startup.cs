@@ -1,6 +1,8 @@
-﻿using Autofac;
+﻿using System.Globalization;
+using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MoneyTracker.Infrastructure.Configuration;
@@ -22,7 +24,10 @@ namespace MoneyTracker.Web
         {
             services.AddScoped<CurrencyViewHelper>();
             services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
-            services.AddMvc();
+            services.AddLocalization(x => x.ResourcesPath = "Resources");
+            services.AddMvc()
+                //.AddDataAnnotationsLocalization()
+                .AddViewLocalization();
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
@@ -41,9 +46,22 @@ namespace MoneyTracker.Web
                 app.UseDeveloperExceptionPage();
             }
 
+            //var supportedCultures = new[]
+            //{
+            //    new CultureInfo("en"),
+            //    new CultureInfo("ru")
+            //};
+
+            //app.UseRequestLocalization(new RequestLocalizationOptions
+            //{
+            //    DefaultRequestCulture = new RequestCulture("en"),
+            //    SupportedCultures = supportedCultures,
+            //    SupportedUICultures = supportedCultures
+            //});
+
             app.UseMvc(x => x.MapRoute("/", "{controller}/{action}", new
             {
-                controller = "Balance",
+                controller = "Home",
                 action = "Index"
             }));
         }

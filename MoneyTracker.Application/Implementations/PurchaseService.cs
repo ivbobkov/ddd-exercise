@@ -17,15 +17,26 @@ namespace MoneyTracker.Application.Implementations
             _purchaseRepository = purchaseRepository;
         }
 
-        public async Task AddPurchaseAsync(string currency, DateTime spentAt, IEnumerable<PurchaseItem> purchaseItems)
+        public async Task<Purchase> FindAsync(Guid purchaseId)
         {
-            var purchase = Purchase.Create(currency, spentAt);
-            foreach (var purchaseItem in purchaseItems)
-            {
-                purchase.AddItem(purchaseItem.Title, purchaseItem.Amount, purchaseItem.Discount);
-            }
+            return await _purchaseRepository.FindAsync(purchaseId);
+        }
 
+        public async Task AddAsync(string currency, DateTime spentAt, IReadOnlyList<PurchaseItem> items)
+        {
+            var purchase = Purchase.Create(currency, spentAt, items);
             _purchaseRepository.Add(purchase);
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task UpdateAsync(Guid purchaseId, string currency, DateTime spentAt, IReadOnlyList<PurchaseItem> items)
+        {
+            var purchase = await _purchaseRepository.FindAsync(purchaseId);
+            purchase.UpdateCurrency(currency);
+            purchase.UpdateSpentAt(spentAt);
+            purchase.UpdateItems(items);
+
+            await _purchaseRepository.UpdateAsync(purchase);
             await _unitOfWork.CommitAsync();
         }
     }
