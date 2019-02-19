@@ -7,14 +7,20 @@ namespace MoneyTracker.Domain.WriteModel.PurchaseAggregate
 {
     public class Purchase : IAggregateRoot, IEntity<Guid>
     {
-        private readonly List<PurchaseItem> _items = new List<PurchaseItem>();
         private string _currency;
+        private readonly List<PurchaseItem> _items;
 
-        public Purchase(Guid id, string currency, DateTime spentAt)
+        public Purchase(Guid id, string currency, DateTime spentAt, IReadOnlyList<PurchaseItem> items)
         {
+            if (!items.Any())
+            {
+                throw new ArgumentException("Expected at least one");
+            }
+
             Id = id;
             _currency = currency;
             SpentAt = spentAt;
+            _items = items.ToList();
         }
 
         public Guid Id { get; }
@@ -29,7 +35,7 @@ namespace MoneyTracker.Domain.WriteModel.PurchaseAggregate
         }
 
         public DateTime SpentAt { get; protected set; }
-        public IEnumerable<PurchaseItem> Items => _items;
+        public IReadOnlyList<PurchaseItem> Items => _items;
 
         public void UpdateSpentAt(DateTime spentAt)
         {
@@ -41,28 +47,34 @@ namespace MoneyTracker.Domain.WriteModel.PurchaseAggregate
             _currency = currency;
         }
 
-        public void AddItem(string title, decimal amount, decimal discount)
+        public void UpdateItems(IReadOnlyList<PurchaseItem> items)
         {
-            _items.Add(PurchaseItem.Create(title, amount, discount));
-        }
-
-        public void UpdateItem(Guid itemId, string title, decimal amount, decimal discount)
-        {
-            var entry = _items.FirstOrDefault(x => x.Id == itemId);
-
-            if (entry == null)
+            if (items.Count < 1)
             {
-                throw new ArgumentException("No item added by given id", nameof(itemId));
+                throw new ArgumentException();
             }
 
-            entry.Title = title;
-            entry.Amount = amount;
-            entry.Discount = discount;
+            foreach (var item in items)
+            {
+                var itemToUpdate = _items.SingleOrDefault(x => x.Id == item.Id);
+
+                if (itemToUpdate != null)
+                {
+                    itemToUpdate.Title = item.Title;
+                    itemToUpdate.Amount = item.Amount;
+                    itemToUpdate.Discount = item.Discount;
+                    continue;
+                }
+
+                _items.Add(item);
+            }
+
+            _items.RemoveAll(item => items.All(x => x.Id != item.Id));
         }
 
-        public static Purchase Create(string currency, DateTime spentAt)
+        public static Purchase Create(string currency, DateTime spentAt, IReadOnlyList<PurchaseItem> items)
         {
-            return new Purchase(Guid.NewGuid(), currency, spentAt);
+            return new Purchase(Guid.NewGuid(), currency, spentAt, items);
         }
     }
 }

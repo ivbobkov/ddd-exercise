@@ -4,11 +4,11 @@ using MoneyTracker.Application;
 
 namespace MoneyTracker.Web.Controllers
 {
-    public class BalanceController : Controller
+    public class HomeController : Controller
     {
         private readonly IBalanceService _balanceService;
 
-        public BalanceController(IBalanceService balanceService)
+        public HomeController(IBalanceService balanceService)
         {
             _balanceService = balanceService;
         }

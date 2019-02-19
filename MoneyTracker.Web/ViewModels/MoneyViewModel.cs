@@ -1,4 +1,4 @@
-﻿namespace MoneyTracker.Web.Models
+﻿namespace MoneyTracker.Web.ViewModels
 {
     public class MoneyViewModel
     {

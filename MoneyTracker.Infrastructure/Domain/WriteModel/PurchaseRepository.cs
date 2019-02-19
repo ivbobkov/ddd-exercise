@@ -21,12 +21,15 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
         public async Task<Purchase> FindAsync(Guid purchaseId)
         {
             var dbEntity = await Purchases.Include(x => x.Items).SingleAsync(x => x.PurchaseId == purchaseId);
-            var purchase = new Purchase(dbEntity.PurchaseId, dbEntity.CurrencyCode, dbEntity.SpentAt);
+            var items = dbEntity.Items
+                .Select(item => new PurchaseItem(
+                    item.PurchaseItemId,
+                    item.Title,
+                    item.Amount,
+                    item.Discount))
+                .ToList();
 
-            foreach (var item in dbEntity.Items)
-            {
-                purchase.AddItem(item.Title, item.Amount, item.Discount);
-            }
+            var purchase = new Purchase(dbEntity.PurchaseId, dbEntity.CurrencyCode, dbEntity.SpentAt, items);
 
             return purchase;
         }
@@ -64,24 +67,33 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
             dbEntity.CurrencyCode = purchase.Total.Currency;
             dbEntity.SpentAt = purchase.SpentAt;
 
-            foreach (var purchaseItem in dbEntity.Items)
+            foreach (var purchaseItem in purchase.Items)
             {
-                var entry = dbEntity.Items.FirstOrDefault(x => x.PurchaseItemId == purchaseItem.PurchaseItemId);
+                var entry = dbEntity.Items.FirstOrDefault(x => x.PurchaseItemId == purchaseItem.Id);
 
-                if (entry == null)
+                if (entry != null)
                 {
-                    dbEntity.Items.Add(new PurchaseItemEntity
-                    {
-                        Title = purchaseItem.Title,
-                        Amount = purchaseItem.Amount,
-                        Discount = purchaseItem.Discount
-                    });
+                    entry.Title = purchaseItem.Title;
+                    entry.Amount = purchaseItem.Amount;
+                    entry.Discount = purchaseItem.Discount;
                     continue;
                 }
 
-                entry.Title = purchaseItem.Title;
-                entry.Amount = purchaseItem.Amount;
-                entry.Discount = purchaseItem.Discount;
+                dbEntity.Items.Add(new PurchaseItemEntity
+                {
+                    Title = purchaseItem.Title,
+                    Amount = purchaseItem.Amount,
+                    Discount = purchaseItem.Discount
+                });
+            }
+
+            var entitiesToDelete = dbEntity.Items
+                .Where(item => purchase.Items.All(x => x.Id != item.PurchaseItemId))
+                .ToList();
+
+            foreach (var entityToDelete in entitiesToDelete)
+            {
+                dbEntity.Items.Remove(entityToDelete);
             }
         }
     }

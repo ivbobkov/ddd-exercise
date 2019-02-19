@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using MoneyTracker.Web.Infrastructure;
+
 using PurchaseModel = MoneyTracker.Domain.WriteModel.PurchaseAggregate.Purchase;
 
-namespace MoneyTracker.Web.Models.Purchase
+namespace MoneyTracker.Web.ViewModels.Purchase
 {
     public class PurchaseViewModel
     {
@@ -16,12 +16,12 @@ namespace MoneyTracker.Web.Models.Purchase
 
         public Guid PurchaseId { get; set; }
         public bool IsNew { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = ViewConstants.DefaultDateTimeFormatString)]
         public DateTime SpentAt { get; set; }
         public string Currency { get; set; }
+
         public List<PurchaseItemViewModel> Purchases { get; set; } = new List<PurchaseItemViewModel>();
 
-        public static PurchaseViewModel CreateNew()
+        public static PurchaseViewModel Create()
         {
             return new PurchaseViewModel
             {

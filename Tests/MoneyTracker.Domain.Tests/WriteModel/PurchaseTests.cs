@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using MoneyTracker.Domain.WriteModel.PurchaseAggregate;
@@ -12,10 +13,14 @@ namespace MoneyTracker.Domain.Tests.WriteModel
         [Test]
         public void AddItem_NewData_VerifyAmount()
         {
-            var purchase = Purchase.Create("USD", DateTime.UtcNow);
-            purchase.AddItem("Position one", 100, 0);
-            purchase.AddItem("Position two", 150, 0);
-            purchase.AddItem("Position three", 10, 7);
+            var purchaseItems = new List<PurchaseItem>
+            {
+                PurchaseItem.Create("Position one", 100, 0),
+                PurchaseItem.Create("Position two", 150, 0),
+                PurchaseItem.Create("Position three", 10, 7)
+            };
+
+            var purchase = Purchase.Create("USD", DateTime.UtcNow, purchaseItems);
 
             purchase.Total.Amount.Should().Be(253);
             purchase.Total.Currency.Should().Be("USD");
@@ -24,24 +29,40 @@ namespace MoneyTracker.Domain.Tests.WriteModel
         }
 
         [Test]
-        public void UpdateItem_UpdateData_VerifyAmount()
+        public void Update_ValidData_VerifyChangedData()
         {
-            const string initialName = "One";
-            const string currencyCode = "USD";
-            const decimal initialAmount = 100;
-            const decimal initialDiscount = 48;
+            var initialPurchaseItems = new List<PurchaseItem>
+            {
+                PurchaseItem.Create("1", 100, 0),
+                PurchaseItem.Create("2", 150, 0),
+                PurchaseItem.Create("3", 10, 7)
+            };
 
-            var purchase = Purchase.Create(currencyCode, DateTime.UtcNow);
-            purchase.AddItem(initialName, initialAmount, initialDiscount);
-            var itemId = purchase.Items.Single().Id;
+            var purchase = Purchase.Create("USD", DateTime.UtcNow, initialPurchaseItems);
+
+            var newPurchaseItems = new List<PurchaseItem>
+            {
+                initialPurchaseItems[0],
+                new PurchaseItem(initialPurchaseItems[1].Id, "New 2", 100, 15),
+                PurchaseItem.Create("4", 75, 0)
+            };
 
             // act
-            purchase.UpdateItem(itemId, "Two", 150, 13);
+            purchase.UpdateItems(newPurchaseItems);
 
             // assert
-            purchase.Total.Amount.Should().Be(137);
-            purchase.Total.Currency.Should().Be(currencyCode);
-            purchase.Items.Should().Contain(x => x.Id == itemId && x.Amount == 150 && x.Discount == 13);
+            purchase.Items.Should().HaveCount(3);
+            purchase.Items[0].Should().BeEquivalentTo(initialPurchaseItems[0]);
+
+            purchase.Items[1].Id.Should().Be(initialPurchaseItems[1].Id);
+            purchase.Items[1].Title.Should().BeEquivalentTo("New 2");
+            purchase.Items[1].Amount.Should().Be(100);
+            purchase.Items[1].Discount.Should().Be(15);
+
+            purchase.Items[2].Id.Should().Be(newPurchaseItems[2].Id);
+            purchase.Items[2].Title.Should().BeEquivalentTo("4");
+            purchase.Items[2].Amount.Should().Be(75);
+            purchase.Items[2].Discount.Should().Be(0);
         }
     }
 }

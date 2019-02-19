@@ -1,7 +1,7 @@
 ﻿using System;
 using MoneyTracker.Domain.WriteModel.PurchaseAggregate;
 
-namespace MoneyTracker.Web.Models.Purchase
+namespace MoneyTracker.Web.ViewModels.Purchase
 {
     public class PurchaseItemViewModel
     {
@@ -10,9 +10,9 @@ namespace MoneyTracker.Web.Models.Purchase
         public decimal Amount { get; set; }
         public decimal Discount { get; set; }
 
-        public static PurchaseItemViewModel Create()
+        public PurchaseItem ToModel()
         {
-            return new PurchaseItemViewModel();
+            return new PurchaseItem(PurchaseItemId, Title, Amount, Discount);
         }
 
         public static PurchaseItemViewModel From(PurchaseItem item)
@@ -24,6 +24,6 @@ namespace MoneyTracker.Web.Models.Purchase
                 Amount = item.Amount,
                 Discount = item.Discount
             };
-        } 
+        }
     }
 }
