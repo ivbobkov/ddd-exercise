@@ -76,7 +76,7 @@ namespace MoneyTracker.Web.Controllers
         [HttpPost]
         public IActionResult AddItem([FromForm] PurchaseViewModel model)
         {
-            model.Purchases.Add(new PurchaseItemViewModel());
+            model.Purchases.Add(PurchaseItemViewModel.Create());
             SaveModel(model);
 
             return model.IsNew ? RedirectToAction("Create") : RedirectToAction("Update");
