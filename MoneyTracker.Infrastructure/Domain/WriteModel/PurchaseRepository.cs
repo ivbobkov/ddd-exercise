@@ -34,6 +34,12 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
             return purchase;
         }
 
+        public async Task DeleteAsync(Guid purchaseId)
+        {
+            var dbEntity = await Purchases.SingleAsync(x => x.PurchaseId == purchaseId);
+            Purchases.Remove(dbEntity);
+        }
+
         public void Add(Purchase purchase)
         {
             var dbEntity = new PurchaseEntity
