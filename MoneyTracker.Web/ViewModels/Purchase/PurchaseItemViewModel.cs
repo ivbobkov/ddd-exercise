@@ -15,6 +15,14 @@ namespace MoneyTracker.Web.ViewModels.Purchase
             return new PurchaseItem(PurchaseItemId, Title, Amount, Discount);
         }
 
+        public static PurchaseItemViewModel Create()
+        {
+            return new PurchaseItemViewModel
+            {
+                PurchaseItemId = Guid.NewGuid()
+            };
+        }
+
         public static PurchaseItemViewModel From(PurchaseItem item)
         {
             return new PurchaseItemViewModel

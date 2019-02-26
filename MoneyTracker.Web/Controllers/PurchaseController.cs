@@ -29,8 +29,15 @@ namespace MoneyTracker.Web.Controllers
         public async Task<IActionResult> Create([FromForm] PurchaseViewModel model)
         {
             var purchases = model.Purchases.Select(x => x.ToModel()).ToList();
-            await _purchaseService.AddAsync(model.Currency, model.SpentAt, purchases);
+            await _purchaseService.CreateAsync(model.Currency, model.SpentAt, purchases);
 
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Guid purchaseId)
+        {
+            await _purchaseService.DeleteAsync(purchaseId);
             return RedirectToAction("Index", "Home");
         }
 
@@ -69,7 +76,7 @@ namespace MoneyTracker.Web.Controllers
         [HttpPost]
         public IActionResult AddItem([FromForm] PurchaseViewModel model)
         {
-            model.Purchases.Add(new PurchaseItemViewModel());
+            model.Purchases.Add(PurchaseItemViewModel.Create());
             SaveModel(model);
 
             return model.IsNew ? RedirectToAction("Create") : RedirectToAction("Update");
