@@ -1,5 +1,4 @@
-﻿using System.Net.NetworkInformation;
-using Autofac;
+﻿using Autofac;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using MoneyTracker.Application;

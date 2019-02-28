@@ -12,7 +12,9 @@ namespace MoneyTracker.Domain.WriteModel.PurchaseAggregate
 
         public Purchase(Guid id, string currency, DateTime spentAt, IEnumerable<PurchaseItem> items)
         {
-            if (!items.Any())
+            var itemsToSave = items.ToList();
+
+            if (!itemsToSave.Any())
             {
                 throw new ArgumentException("Expected at least one");
             }
@@ -20,7 +22,7 @@ namespace MoneyTracker.Domain.WriteModel.PurchaseAggregate
             Id = id;
             _currency = currency;
             SpentAt = spentAt;
-            _items = items.ToList();
+            _items = itemsToSave;
         }
 
         public Guid Id { get; }

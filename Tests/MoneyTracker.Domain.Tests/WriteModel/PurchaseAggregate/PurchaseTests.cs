@@ -48,5 +48,20 @@ namespace MoneyTracker.Domain.Tests.WriteModel.PurchaseAggregate
                     && a.Amount == b.Amount
                     && a.Discount == b.Discount);
         }
+
+        [Test]
+        public void UpdateSpentAt_CompareDates()
+        {
+            var purchase = PurchaseFaker.Any();
+            var initialDate = purchase.SpentAt;
+
+            // act
+            var newDate = DateTime.Now;
+            purchase.UpdateSpentAt(newDate);
+
+            // assert
+            purchase.SpentAt.Should().NotBe(initialDate)
+                .And.Be(newDate);
+        }
     }
 }
