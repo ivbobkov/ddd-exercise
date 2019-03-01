@@ -10,9 +10,11 @@ namespace MoneyTracker.Domain.WriteModel.PurchaseAggregate
         private string _currency;
         private readonly List<PurchaseItem> _items;
 
-        public Purchase(Guid id, string currency, DateTime spentAt, IReadOnlyList<PurchaseItem> items)
+        public Purchase(Guid id, string currency, DateTime spentAt, IEnumerable<PurchaseItem> items)
         {
-            if (!items.Any())
+            var itemsToSave = items.ToList();
+
+            if (!itemsToSave.Any())
             {
                 throw new ArgumentException("Expected at least one");
             }
@@ -20,7 +22,7 @@ namespace MoneyTracker.Domain.WriteModel.PurchaseAggregate
             Id = id;
             _currency = currency;
             SpentAt = spentAt;
-            _items = items.ToList();
+            _items = itemsToSave;
         }
 
         public Guid Id { get; }
@@ -35,7 +37,7 @@ namespace MoneyTracker.Domain.WriteModel.PurchaseAggregate
         }
 
         public DateTime SpentAt { get; protected set; }
-        public IReadOnlyList<PurchaseItem> Items => _items;
+        public IEnumerable<PurchaseItem> Items => _items;
 
         public void UpdateSpentAt(DateTime spentAt)
         {
@@ -47,14 +49,16 @@ namespace MoneyTracker.Domain.WriteModel.PurchaseAggregate
             _currency = currency;
         }
 
-        public void UpdateItems(IReadOnlyList<PurchaseItem> items)
+        public void UpdateItems(IEnumerable<PurchaseItem> items)
         {
-            if (items.Count < 1)
+            var itemsToUpdate = items.ToList();
+
+            if (!itemsToUpdate.Any())
             {
                 throw new ArgumentException();
             }
 
-            foreach (var item in items)
+            foreach (var item in itemsToUpdate)
             {
                 var itemToUpdate = _items.SingleOrDefault(x => x.Id == item.Id);
 
@@ -69,10 +73,10 @@ namespace MoneyTracker.Domain.WriteModel.PurchaseAggregate
                 _items.Add(item);
             }
 
-            _items.RemoveAll(item => items.All(x => x.Id != item.Id));
+            _items.RemoveAll(item => itemsToUpdate.All(x => x.Id != item.Id));
         }
 
-        public static Purchase Create(string currency, DateTime spentAt, IReadOnlyList<PurchaseItem> items)
+        public static Purchase Create(string currency, DateTime spentAt, IEnumerable<PurchaseItem> items)
         {
             return new Purchase(Guid.NewGuid(), currency, spentAt, items);
         }
