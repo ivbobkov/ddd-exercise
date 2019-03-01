@@ -73,6 +73,15 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
             dbEntity.CurrencyCode = purchase.Total.Currency;
             dbEntity.SpentAt = purchase.SpentAt;
 
+            var entitiesToDelete = dbEntity.Items
+                .Where(item => purchase.Items.All(x => x.Id != item.PurchaseItemId))
+                .ToList();
+
+            foreach (var entityToDelete in entitiesToDelete)
+            {
+                dbEntity.Items.Remove(entityToDelete);
+            }
+
             foreach (var purchaseItem in purchase.Items)
             {
                 var entry = dbEntity.Items.FirstOrDefault(x => x.PurchaseItemId == purchaseItem.Id);
@@ -91,15 +100,6 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
                     Amount = purchaseItem.Amount,
                     Discount = purchaseItem.Discount
                 });
-            }
-
-            var entitiesToDelete = dbEntity.Items
-                .Where(item => purchase.Items.All(x => x.Id != item.PurchaseItemId))
-                .ToList();
-
-            foreach (var entityToDelete in entitiesToDelete)
-            {
-                dbEntity.Items.Remove(entityToDelete);
             }
         }
     }
