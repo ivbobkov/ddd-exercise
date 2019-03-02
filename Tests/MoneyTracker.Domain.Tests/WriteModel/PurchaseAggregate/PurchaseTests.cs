@@ -31,7 +31,7 @@ namespace MoneyTracker.Domain.Tests.WriteModel.PurchaseAggregate
             var initialPurchaseItems = purchase.Items.ToList();
             var newPurchaseItems = new List<PurchaseItem>
             {
-                new PurchaseItem(initialPurchaseItems[1].Id, "New 2", 100, 15),
+                new PurchaseItem(initialPurchaseItems[1].Id, "New 2", "45 mm", 100, 15),
                 PurchaseItemFaker.Create(),
                 PurchaseItemFaker.Create(),
                 initialPurchaseItems[0],
@@ -45,6 +45,7 @@ namespace MoneyTracker.Domain.Tests.WriteModel.PurchaseAggregate
                 .And.Equal(newPurchaseItems.OrderBy(x => x.Id), (a, b) =>
                     a.Id == b.Id
                     && a.Title == b.Title
+                    && a.Quantity == b.Quantity
                     && a.Amount == b.Amount
                     && a.Discount == b.Discount);
         }

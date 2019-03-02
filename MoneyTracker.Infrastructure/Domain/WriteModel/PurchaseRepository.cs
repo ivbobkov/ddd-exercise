@@ -22,11 +22,7 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
         {
             var dbEntity = await Purchases.Include(x => x.Items).SingleAsync(x => x.PurchaseId == purchaseId);
             var items = dbEntity.Items
-                .Select(item => new PurchaseItem(
-                    item.PurchaseItemId,
-                    item.Title,
-                    item.Amount,
-                    item.Discount))
+                .Select(item => new PurchaseItem(item.PurchaseItemId, item.Title, item.Quantity, item.Amount, item.Discount))
                 .ToList();
 
             var purchase = new Purchase(dbEntity.PurchaseId, dbEntity.CurrencyCode, dbEntity.SpentAt, items);
@@ -55,6 +51,7 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
                 dbEntity.Items.Add(new PurchaseItemEntity
                 {
                     Title = purchaseItem.Title,
+                    Quantity = purchaseItem.Quantity,
                     Amount = purchaseItem.Amount,
                     Discount = purchaseItem.Discount
                 });
@@ -89,6 +86,7 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
                 if (entry != null)
                 {
                     entry.Title = purchaseItem.Title;
+                    entry.Quantity = purchaseItem.Quantity;
                     entry.Amount = purchaseItem.Amount;
                     entry.Discount = purchaseItem.Discount;
                     continue;
@@ -97,6 +95,7 @@ namespace MoneyTracker.Infrastructure.Domain.WriteModel
                 dbEntity.Items.Add(new PurchaseItemEntity
                 {
                     Title = purchaseItem.Title,
+                    Quantity = purchaseItem.Quantity,
                     Amount = purchaseItem.Amount,
                     Discount = purchaseItem.Discount
                 });

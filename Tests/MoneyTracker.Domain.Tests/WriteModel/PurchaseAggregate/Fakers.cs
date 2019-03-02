@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Bogus;
 using MoneyTracker.Domain.WriteModel.PurchaseAggregate;
 
@@ -16,7 +15,7 @@ namespace MoneyTracker.Domain.Tests.WriteModel.PurchaseAggregate
 
             var amount = random.Decimal(0.1M, 1000M);
 
-            return PurchaseItem.Create(commerce.ProductName(), amount, random.Decimal(0M, amount));
+            return PurchaseItem.Create(commerce.ProductName(), "45", amount, random.Decimal(0M, amount));
         }
 
         public static List<PurchaseItem> Generate(int count)

@@ -13,7 +13,7 @@
     <h3>@message</h3>
 
     <div class="row">
-        <div class="col-md-8 form-group">
+        <div class="col-md-8 col-sm-6 form-group">
             <label asp-for="SpentAt" class="control-label"></label>
             <div class="input-group date datepicker">
                 <input type="text" asp-for="SpentAt" class="form-control" />
@@ -22,7 +22,7 @@
                 </span>
             </div>
         </div>
-        <div class="col-md-4 form-group">
+        <div class="col-md-4 col-sm-6 form-group">
             <label asp-for="Currency" class="control-label"></label>
             <select asp-for="Currency" asp-items="await CurrencyViewHelper.AllAsync()" class="form-control"></select>
         </div>
@@ -31,7 +31,8 @@
     @if (Model.Purchases.Any())
     {
         <div class="row form-group hidden-sm">
-            <div class="col-md-6"><strong>Title</strong></div>
+            <div class="col-md-4"><strong>Title</strong></div>
+            <div class="col-md-2">@Html.LabelFor(x => x.Purchases[0].Quantity)</div>
             <div class="col-md-2"><strong>Amount</strong></div>
             <div class="col-md-2"><strong>Discount</strong></div>
         </div>
@@ -40,20 +41,24 @@
     @for (var index = 0; index < Model.Purchases.Count; index++)
     {
         <div class="row">
-            <div class="col-md-6 col-sm-12 form-group">
+            <div class="col-md-4 col-sm-12 form-group">
                 <input asp-for="Purchases[index].PurchaseItemId" type="hidden" class="form-control" />
                 <label asp-for="Purchases[index].Title" class="control-label visible-sm"></label>
                 <input asp-for="Purchases[index].Title" type="text" class="form-control" />
             </div>
-            <div class="col-md-2 col-sm-4 form-group">
+            <div class="col-md-2 col-sm-12 form-group">
+                <label asp-for="Purchases[index].Quantity" class="control-label visible-sm"></label>
+                <input asp-for="Purchases[index].Quantity" class="form-control" />
+            </div>
+            <div class="col-md-2 col-sm-6 form-group">
                 <label asp-for="Purchases[index].Amount" class="control-label visible-sm"></label>
                 <input asp-for="Purchases[index].Amount" type="number" class="form-control" min="0" step=".01" />
             </div>
-            <div class="col-md-2 col-sm-4 form-group">
+            <div class="col-md-2 col-sm-6 form-group">
                 <label asp-for="Purchases[index].Discount" class="control-label visible-sm"></label>
                 <input asp-for="Purchases[index].Discount" type="number" class="form-control" min="0" step=".01" />
             </div>
-            <div class="col-md-2 col-sm-4 form-group">
+            <div class="col-md-2 col-sm-12 form-group">
                 <label class="control-label visible-sm">&nbsp;</label>
                 <button type="submit" asp-action="RemoveItem" name="index" value="@index" class="btn btn-block btn-warning">
                     <b class="glyphicon glyphicon-remove"></b>

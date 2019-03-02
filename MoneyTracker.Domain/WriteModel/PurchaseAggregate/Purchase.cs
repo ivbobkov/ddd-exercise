@@ -65,6 +65,7 @@ namespace MoneyTracker.Domain.WriteModel.PurchaseAggregate
                 if (itemToUpdate != null)
                 {
                     itemToUpdate.Title = item.Title;
+                    itemToUpdate.Quantity = item.Quantity;
                     itemToUpdate.Amount = item.Amount;
                     itemToUpdate.Discount = item.Discount;
                     continue;
