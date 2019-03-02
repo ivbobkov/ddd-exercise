@@ -30,6 +30,7 @@ namespace MoneyTracker.Web.ViewModels.Purchase
             {
                 PurchaseItemId = item.Id,
                 Title = item.Title,
+                Quantity = item.Quantity,
                 Amount = item.Amount,
                 Discount = item.Discount
             };
