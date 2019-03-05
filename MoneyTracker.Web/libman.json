@@ -17,6 +17,11 @@
     {
       "library": "moment.js@2.24.0",
       "destination": "wwwroot/lib/moment.js/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "vue@2.6.8",
+      "destination": "wwwroot/lib/vue/"
     }
   ]
 }

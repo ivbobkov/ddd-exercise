@@ -39,6 +39,7 @@ namespace MoneyTracker.Web
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseDefaultFiles();
             app.UseStaticFiles();
 
             if (env.IsDevelopment())
